@@ -12,12 +12,11 @@ import { WagmiProvider } from "wagmi";
 import { base, baseSepolia } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
-import { defineChain } from "viem";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Layout from "@/components/shared/Layout";
 import splitbee from "@splitbee/web";
 
-import {PrivyProvider} from '@privy-io/react-auth';
+import { PrivyProvider } from "@privy-io/react-auth";
 
 const config = getDefaultConfig({
   appName: "HigherLINK",
@@ -50,6 +49,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <PrivyProvider
             appId="clxr9cygi06gn3v696ck1f0ma"
+            config={{
+              loginMethods: ["email"],
+              defaultChain: base,
+              supportedChains: [base, baseSepolia],
+              embeddedWallets: {
+                createOnLogin: "users-without-wallets", // defaults to 'off'
+              },
+            }}
           >
             <RainbowKitProvider theme={rainbowKitTheme}>
               <ThemeProvider attribute="class" defaultTheme="dark">
