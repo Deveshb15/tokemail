@@ -31,7 +31,6 @@ const Home = () => {
     if (isConnected) router.push("/dashboard");
   }, [isConnected]);
 
-  console.log("AUTHENTICATED ", authenticated, ready);
   useEffect(() => {
     if (authenticated && ready) router.push("/claim/dashboard");
   }, [authenticated, ready]);
