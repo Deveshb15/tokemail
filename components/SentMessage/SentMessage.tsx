@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useAccount } from "wagmi";
+import { TOKEN_NAME } from "@/lib/utils";
 
 const SentMessage = () => {
   const router = useRouter();
@@ -16,12 +17,13 @@ const SentMessage = () => {
           Successfully sent
           <div className="flex gap-1 items-center">
             <Image
-              src="/degen-icon.png"
+              src="/higher-icon.png"
               width={24}
               height={24}
-              alt="Degen Icon"
+              className="rounded-full"
+              alt="Higher Icon"
             />
-            <span className="text-dark-purple">$HIGHER</span>
+            <span className="text-dark-purple">${TOKEN_NAME}</span>
           </div>
           to
         </div>
@@ -31,7 +33,7 @@ const SentMessage = () => {
         <div className="flex gap-4 mt-8 sm:flex-row flex-col w-full sm:w-auto">
           <Link
             target="_blank"
-            href={`${chainId == 8453 ? `https://basescan.org/tx/${hash}` : `https://sepolia.basescan.org/${hash}`}`}
+            href={`${chainId == 8453 ? `https://basescan.org/tx/${hash}` : `https://sepolia.basescan.org/tx/${hash}`}`}
             className="py-3 px-8 rounded-xl font-bold text-center font-sans text-base border border-dark-purple border-solid text-dark-purple"
           >
             View Transaction

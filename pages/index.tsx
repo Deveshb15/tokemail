@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export default function HomePage() {
   return (
-    <main className="flex h-screen flex-col  items-center justify-between md:p-16 pb-6">
+    <main className="flex h-screen flex-col  items-center justify-center md:p-16 pb-6">
       <Home />
     </main>
   );

@@ -11,9 +11,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { data, error } = await resend.emails.send({
         // from: 'Degenlink <gm@degenlink.io>',
-        from: "DEVESH <devesh@deveshb.tech>",
+        from: "DEVESH <send@deveshb.tech>",
         to: [email],
-        subject: "You've been served some DEGEN",
+        subject: "You've been served some HIGHER",
         react: Email({ uid, seed, note, amount }),
     });
 

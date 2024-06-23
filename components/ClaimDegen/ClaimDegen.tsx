@@ -5,16 +5,24 @@ import Card from "../shared/Card";
 import { supabase } from "@/lib/supabase";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { base } from "viem/chains";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useWalletClient } from "wagmi";
 import splitbee from "@splitbee/web";
+import { TOKEN_NAME } from "@/lib/utils";
+import { usePrivy } from "@privy-io/react-auth";
 
 const ClaimDegen = () => {
   const router = useRouter();
   const { uid } = router.query;
   const [loading, setLoading] = useState(false);
+  const [claimData, setClaimData] = useState<any>({});
+  const [allowExport, setAllowExport] = useState(false);
+  const [claimStarted, setClaimStarted] = useState(false);
+
+  const { login, user, exportWallet, ready, authenticated } = usePrivy();
+
   const handleClaim = async () => {
     setLoading(true);
     toast.loading("Starting Claim");
@@ -31,7 +39,10 @@ const ClaimDegen = () => {
         if (!hasClaimed) {
           setTimeout(() => {
             toast.success(
-              "Queued the claim, should reflect in your wallet soon"
+              "Queued the claim, should reflect in your wallet soon, please check back in a few minutes.",
+              {
+                duration: 10000,
+              }
             );
             setLoading(false);
           }, 5000);
@@ -39,13 +50,14 @@ const ClaimDegen = () => {
             data: { hash },
           } = await axios.post<{ hash: string }>("/api/claim", {
             uid,
+            address: user?.wallet?.address,
             chain: data[0].chain,
           });
           if (hash) {
+            console.log("HASH ", hash);
             toast.success("Sucessfully Claimed the Tip!");
-            setTimeout(() => {
-              router.push("/");
-            }, 3000);
+            setAllowExport(true);
+            router.push("/claim/dashboard");
           } else {
             toast.error("Something went wrong, contact the team.");
           }
@@ -58,48 +70,97 @@ const ClaimDegen = () => {
     } else {
       toast.error("This Claim doesn't exist!");
     }
+    toast.dismiss();
     setLoading(false);
   };
   const { isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
-  const handleAdd = async () => {
-    await walletClient?.addChain({ chain: base });
-    toast.success("Successfully added HIGHER Chain to wallet");
+
+  const handleClaimDetails = async (claim_uid: string) => {
+    try {
+      const { data, error } = await supabase
+        .from("tips")
+        .select("*")
+        .eq("claim_uid", claim_uid);
+
+      return { data, error };
+    } catch (error) {
+      console.error("Error fetching claim details", error);
+    }
   };
+
+  // get the details of the claim
+  // check if the claim has been claimed
+  useEffect(() => {
+    console.log("UID ", uid);
+    if (uid) {
+      handleClaimDetails(uid.toString()).then(({ data, error }: any) => {
+        if (!error && data.length > 0) {
+          setClaimData(data[0]);
+        } else {
+          toast.error("This Claim doesn't exist!");
+        }
+      });
+    }
+  }, [uid]);
+
+  useEffect(() => {
+    if (user?.wallet?.address && !claimStarted) {
+      setLoading(true);
+      console.log("CLAIM STARTED");
+      setClaimStarted(true);
+      handleClaim().then(() => {
+        setLoading(false);
+      }).catch((e) => {
+        console.error("ERROR ", e);
+        setLoading(false);
+      })
+    }
+  }, [user?.wallet?.address]);
+
+  console.log("CLAIM DATA ", user?.wallet?.address, claimData, loading);
+
   return (
     <div>
       <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center   bg-[url('/background.svg')] bg-[#33106D] [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-        CLAIM $HIGHER
+        CLAIM ${TOKEN_NAME}
       </div>
-      <Card>
-        <div className="flex flex-col items-center py-12 sm:px-12 px-6">
-          <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
-            Here&apos;s you Golden Ticket into
-            <br /> the world of Web3
-          </h3>
-          <Button
-            content="CLAIM $HIGHER"
-            onClick={handleClaim}
-            loading={loading}
-          />
-        </div>
-        <div className="flex flex-col items-center pb-4 sm:px-12 px-6">
-          <p className="text-[#626363] font-sans text-sm leading-[150%] mb-6 text-center">
-            To View your Balance
-          </p>
-          {!isConnected ? (
-            <ConnectButton />
-          ) : (
-            <ShadButton
-              variant="ghost"
-              className="py-6 px-8 rounded-xl font-bold text-center font-sans text-base leading-loose border border-dark-purple border-solid text-dark-purple"
-              onClick={handleAdd}
-            >
-              Add HIGHER to Wallet
-            </ShadButton>
-          )}
-        </div>
-      </Card>
+      {claimData && claimData.claimed ? (
+        <Card>
+          <div className="flex flex-col items-center py-12 sm:px-12 px-6">
+            <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
+              This Claim has already been claimed
+            </h3>
+            <Button content={`Export Wallet`} onClick={exportWallet} />
+          </div>
+        </Card>
+      ) : (
+        <Card>
+          <div className="flex flex-col items-center py-12 sm:px-12 px-6">
+            <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
+              Here&apos;s you Golden Ticket into
+              <br /> the world of Web3
+            </h3>
+            {ready && user && authenticated ? (
+              allowExport ? (
+                <Button content={`Export Wallet`} onClick={exportWallet} />
+              ) : (
+                <Button
+                  content={`Claim $${TOKEN_NAME}`}
+                  onClick={login}
+                  disabled={loading}
+                />
+              )
+            ) : (
+              <Button
+                content={`Claim ${claimData.amount ?? ""} $${TOKEN_NAME}`}
+                onClick={login}
+                disabled={loading}
+              />
+            )}
+          </div>
+        </Card>
+      )}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { TOKEN_NAME } from "@/lib/utils";
 
 export function Email({
   uid,
@@ -49,7 +50,7 @@ export function Email({
                 paddingTop: "2rem",
               }}
             >
-              $HIGHERLINK
+              ${TOKEN_NAME}LINK
             </Text>
             <Heading
               as="h2"
@@ -97,7 +98,7 @@ export function Email({
                 marginBottom: "2rem",
               }}
             >
-              You just received {amount} $HIGHER
+              You just received {amount} ${TOKEN_NAME}
             </Text>
             {note && (
               <Text
@@ -116,183 +117,7 @@ export function Email({
                 {note}
               </Text>
             )}
-            <Heading
-              as="h3"
-              style={{
-                color: "#9261E1",
-                textAlign: "center",
-                fontSize: "1.5rem",
-                fontStyle: "normal",
-                fontWeight: "700",
-                lineHeight: "150%",
-                margin: "3rem 0",
-              }}
-            >
-              How to Claim 👇
-            </Heading>
             <Section style={{}}>
-              <Section
-                style={{
-                  maxWidth: "25rem",
-                  textAlign: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "white",
-                    fontSize: "1.125rem",
-                    fontWeight: "bold",
-                    background: "#9261E1",
-                    borderRadius: "100%",
-                    width: "3rem",
-                    height: "3rem",
-                    lineHeight: "3rem",
-                    margin: "0 auto",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  1
-                </Text>
-                <Text
-                  style={{
-                    color: "black",
-                    textAlign: "center",
-                    fontSize: "1.125rem",
-                    lineHeight: "150%",
-                    marginBottom: "2rem",
-                  }}
-                >
-                  You need a wallet first. Install Rainbow Wallet from here.
-                </Text>
-                <Row>
-                  <Column>
-                    <Link
-                      target="_blank"
-                      href="https://rainbow.me/en/download"
-                      style={{
-                        color: "black",
-                        fontSize: "1rem",
-                        lineHeight: "150%",
-                        borderRadius: "0.75rem",
-                        background: "#EEE",
-                        padding: "1rem 0.8rem",
-                        marginRight: "0.5rem",
-                        display: "inline-block",
-                      }}
-                    >
-                      <Img
-                        src="https://res.cloudinary.com/dczghbro7/image/upload/v1712671958/rainbowWallet_ay3ulf.png"
-                        width="24"
-                        height="24"
-                        alt="Rainbow Logo"
-                        style={{
-                          display: "inline-block",
-                          marginRight: "1rem",
-                          verticalAlign: "middle",
-                        }}
-                      />
-                      <span>Browser Extension</span>
-                    </Link>
-                  </Column>
-                  <Column>
-                    <Link
-                      target="_blank"
-                      href="https://rnbwapp.com/e/mobile"
-                      style={{
-                        color: "black",
-                        fontSize: "1rem",
-                        lineHeight: "150%",
-                        borderRadius: "0.75rem",
-                        background: "#EEE",
-                        padding: "1rem 0.8rem",
-                        display: "inline-block",
-                      }}
-                    >
-                      <Img
-                        src="https://res.cloudinary.com/dczghbro7/image/upload/v1712671958/rainbowWallet_ay3ulf.png"
-                        width="24"
-                        height="24"
-                        alt="Rainbow Logo"
-                        style={{
-                          display: "inline-block",
-                          marginRight: "1rem",
-                          verticalAlign: "middle",
-                        }}
-                      />
-                      Mobile App
-                    </Link>
-                  </Column>
-                </Row>
-              </Section>
-              <Section
-                style={{
-                  maxWidth: "32rem",
-                }}
-              >
-                <Section
-                  style={{
-                    maxWidth: "28rem",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: "1.125rem",
-                      fontWeight: "bold",
-
-                      background: "#9261E1",
-                      borderRadius: "100%",
-                      width: "3rem",
-                      height: "3rem",
-
-                      lineHeight: "3rem",
-
-                      margin: "4rem auto 1rem auto",
-                    }}
-                  >
-                    2
-                  </Text>
-                  <Text
-                    style={{
-                      color: "black",
-                      textAlign: "center",
-                      fontSize: "1.125rem",
-                      lineHeight: "150%",
-                      marginBottom: "2rem",
-                    }}
-                  >
-                    Now, Import the below phrase into Rainbow. Simply Copy &
-                    Paste.
-                  </Text>
-                  <Text
-                    style={{
-                      color: "black",
-                      textAlign: "center",
-                      fontSize: "1.125rem",
-                      lineHeight: "150%",
-                      marginBottom: "2rem",
-                    }}
-                  >
-                    This is your unique secret phrase, store/save it safe.
-                  </Text>
-                </Section>
-                <Text
-                  style={{
-                    color: "black",
-                    textAlign: "center",
-                    fontSize: "1.125rem",
-                    lineHeight: "150%",
-                    fontWeight: "500",
-                    borderRadius: "1.5rem",
-                    border: "2px dashed rgba(146, 97, 225, 0.50)",
-                    background: "#EEE",
-                    padding: "1.5rem 2rem",
-                  }}
-                >
-                  {seed}
-                </Text>
-              </Section>
               <Section
                 style={{
                   maxWidth: "18rem",
@@ -301,25 +126,6 @@ export function Email({
               >
                 <Text
                   style={{
-                    color: "white",
-                    fontSize: "1.125rem",
-                    fontWeight: "bold",
-
-                    background: "#9261E1",
-                    borderRadius: "100%",
-                    width: "3rem",
-                    height: "3rem",
-
-                    lineHeight: "3rem",
-
-                    margin: "4rem auto 1rem auto",
-                    textAlign: "center" as const,
-                  }}
-                >
-                  3
-                </Text>
-                <Text
-                  style={{
                     color: "black",
                     textAlign: "center",
                     fontSize: "1.125rem",
@@ -327,10 +133,10 @@ export function Email({
                     marginBottom: "2rem",
                   }}
                 >
-                  Now, Click the below link to Claim your $HIGHER.
+                  Now, Click the below link to Claim your ${TOKEN_NAME}.
                 </Text>
                 <Link
-                  href={`https://degenlink.io/claim?uid=${uid}`}
+                  href={`https://higher-link.vercel.app/claim?uid=${uid}`}
                   style={{
                     textDecoration: "none",
                     padding: "1rem 2rem",
@@ -343,7 +149,7 @@ export function Email({
                     width: "100%",
                   }}
                 >
-                  Claim $HIGHER
+                  Claim ${TOKEN_NAME}
                 </Link>
               </Section>
             </Section>

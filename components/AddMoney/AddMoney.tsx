@@ -7,18 +7,20 @@ import { formatEther } from "viem";
 import { useRouter } from "next/router";
 import Assets from "./AssetList";
 import DropdownButton from "./AssetDropDown";
+import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS, TOKEN_NAME } from "@/lib/utils";
 
 const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
   const [selectedAmount, setSelectedAmount] = useState("");
   const [email, setEmail] = useState("");
   const [note, setNote] = useState(
-    "Welcome to the other side my fren, enjoy the $HIGHER"
+    `Welcome to the other side my fren, enjoy the $${TOKEN_NAME}`
   );
 
-  const { address } = useAccount();
-  const { data: balanceData } = useBalance({
+  const { address, chainId } = useAccount();
+  const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
+    token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
   });
 
   const router = useRouter();

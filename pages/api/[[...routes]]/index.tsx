@@ -10,7 +10,7 @@ import { serveStatic } from "frog/serve-static";
 import { formatEther, parseEther } from "viem";
 import axios from "axios";
 import { neynar } from "frog/middlewares";
-import { abi } from "@/lib/utils";
+import { TOKEN_NAME, abi } from "@/lib/utils";
 import { english, generateMnemonic, mnemonicToAccount } from "viem/accounts";
 import { supabase } from "@/lib/supabase";
 import { v4 } from "uuid";
@@ -38,7 +38,7 @@ const app = new Frog<{ State: State }>({
   browserLocation: "/",
   initialState: {
     amount: "",
-    note: "Welcome to the other side my fren, enjoy the $ETH",
+    note: "Welcome to the other side my fren, enjoy the $HIGHER",
     email: "",
   },
   // Supply a Hub to enable frame verification.
@@ -111,7 +111,7 @@ app.frame("/", (c) => {
         Check Balance
       </Button>,
       <Button action="/gift" value="gift">
-        Gift $ETH
+        Gift ${TOKEN_NAME}
       </Button>,
     ],
   });
@@ -205,7 +205,7 @@ app.frame("/balance", neynarMiddleware, async (c) => {
         Check Balance
       </Button>,
       <Button action="/gift" value="gift">
-        Gift $ETH
+        Gift ${TOKEN_NAME}
       </Button>,
     ],
   });
@@ -265,12 +265,12 @@ app.frame("/gift", neynarMiddleware, async (c) => {
             marginTop: "-4rem",
           }}
         >
-          Balance : {balance ? formatEther(balance.value).slice(0, 6) : 0} ETH
+          Balance : {balance ? formatEther(balance.value).slice(0, 6) : 0} HIGHER
         </p>
       </div>
     ),
     intents: [
-      <TextInput placeholder="Enter Eth to send" />,
+      <TextInput placeholder="Enter HIGHER to send" />,
       <Button value="1000">1000</Button>,
       <Button value="2000">2000</Button>,
       <Button value="next">Next</Button>,
@@ -555,7 +555,7 @@ app.frame("/success", async (c) => {
         >
           <span> Successfully</span>
           <span style={{ color: "#C898E6", margin: "-1rem 0" }}>
-            SENT {amount} $ETH
+            SENT {amount} $HIGHER
           </span>
         </p>
         <p

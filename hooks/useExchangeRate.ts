@@ -8,7 +8,7 @@ export const useExchangeRate = (chain: number) => {
             return axios
                 .get<{
                     rate: number
-                }>("/api/exchange", { params: { chain: chain == 8453 ? "ethereum" : "ethereum"} }).then((res) => res.data)
+                }>("/api/exchange", { params: { chain: chain == 8453 ? "higher" : "higher"} }).then((res) => res.data)
         },
 
     })

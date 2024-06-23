@@ -1,14 +1,14 @@
 import { supabase } from "@/lib/supabase";
-import { abi } from "@/lib/utils";
+import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS, TRANSFER_ABI, abi } from "@/lib/utils";
 import { NextApiHandler } from "next";
-import { createWalletClient, http } from "viem";
+import { createWalletClient, http, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, baseSepolia } from "viem/chains";
 
 const handler: NextApiHandler = async (req, res) => {
   if (req.method == "POST") {
     try {
-      const { uid, chain } = req.body;
+      const { uid, address, chain } = req.body;
       const account = privateKeyToAccount(
         process.env.PRIVATE_KEY as `0x${string}`
       );
@@ -28,23 +28,22 @@ const handler: NextApiHandler = async (req, res) => {
       if (!error && data.length > 0) {
         try {
           const hash = await walletClient.writeContract({
-            abi,
-            address:
-              chain === "8453"
-                ? "0x55d6Da3732babC063bAa40FF4BbB53dCF113F265"
-                : "0xc2d646D2e9b737fC0563E289c1403326E937ca44",
-            functionName: "withdrawTip",
-            account,
-            args: [data[0].recipient_address],
+            abi: TRANSFER_ABI,
+            address: chain === "8453" ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
+            functionName: "transfer",
+            args: [address, parseEther(String(data[0].amount))],
           });
-          const { error } = await supabase
+          console.log("HASH ", hash);
+          const { data: updateData, error } = await supabase
             .from("tips")
             .update({
               ...data[0],
               claimed: true,
+              recipient_address: address,
               receiver_hash: hash,
             })
             .eq("claim_uid", uid);
+          console.log("ERROR ", error, updateData);
           if (error) res.status(400).json({ error });
           return res.status(200).send({ hash });
         } catch (e) {

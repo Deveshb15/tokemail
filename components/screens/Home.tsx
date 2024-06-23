@@ -1,11 +1,12 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Footer from "../shared/Footer";
 import Logo from "../shared/Logo";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { TOKEN_NAME } from "@/lib/utils";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Home = () => {
   const router = useRouter();
@@ -24,10 +25,15 @@ const Home = () => {
   });
 
   const { isConnected } = useAccount();
+  const { authenticated, ready, exportWallet } = usePrivy()
 
   useEffect(() => {
     if (isConnected) router.push("/dashboard");
   }, [isConnected]);
+
+  useEffect(() => {
+    if (authenticated && ready) router.push("/claim/dashboard");
+  }, [authenticated, ready]);
 
   return (
     <>
@@ -48,11 +54,18 @@ const Home = () => {
         >
           Onboard your friends
           <br /> onchain with{" "}
-          <span className="text-purple">$HIGHER</span>
+          <span className="text-purple">${TOKEN_NAME}</span>
         </h2>
-        <ConnectButton />
+        {
+          (authenticated && ready) ? (
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
+              Export Wallet
+            </button>
+          ) : (
+            <ConnectButton />
+          )
+        }
       </div>
-      <Footer />
     </>
   );
 };

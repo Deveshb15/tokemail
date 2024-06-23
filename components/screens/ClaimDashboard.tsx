@@ -1,17 +1,17 @@
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
 import Header from "../shared/Header";
-import WalletBalance from "../shared/WalletBalance";
+import ClaimWalletBalance from "../shared/ClaimWalletBalance";
 
-const Dashboard = () => {
+const ClaimDashboard = () => {
   return (
     <>
       {/* <Header /> */}
       <div className="md:my-14 mx-6 md:mx-0 my-8">
-        <WalletBalance dashboard />
+        <ClaimWalletBalance dashboard />
         <TransactionHistory />
       </div>
     </>
   );
 };
 
-export default Dashboard;
+export default ClaimDashboard;

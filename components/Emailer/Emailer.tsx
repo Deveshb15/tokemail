@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { TOKEN_NAME } from "@/lib/utils";
+
 const Emailer = ({
   uid,
   note,
@@ -35,7 +37,7 @@ const Emailer = ({
             textShadow: "0 4px 0 rgba(146, 97, 225, 1)",
           }}
         >
-          $HIGHERLINK
+          ${TOKEN_NAME}LINK
         </div>
         <h2
           style={{
@@ -77,7 +79,7 @@ const Emailer = ({
           Hey 👋
           <br />
           <br />
-          You just received {amount} $HIGHER
+          You just received {amount} ${TOKEN_NAME}
         </p>
         {note && (
           <p
@@ -310,10 +312,10 @@ const Emailer = ({
                 marginBottom: "2rem",
               }}
             >
-              Now, Click the below link to Claim your $HIGHER.
+              Now, Click the below link to Claim your ${TOKEN_NAME}.
             </p>
             <a
-              href={`https://degenlink-web.vercel.app/claim?uid=${uid}`}
+              href={`https://higher-link.vercel.app/claim?uid=${uid}`}
               style={{
                 textDecoration: "none",
                 padding: "1rem 2rem",
@@ -326,46 +328,11 @@ const Emailer = ({
                 width: "100%",
               }}
             >
-              Claim $HIGHER
+              Claim ${TOKEN_NAME}
             </a>
           </div>
         </div>
       </div>
-      <footer
-        style={{
-          fontFamily: "Inter, sans-serif",
-          color: "#BEBEBE",
-          fontSize: "0.75rem",
-          backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
-          padding: "1.5rem 1.5rem",
-          justifyContent: "space-between",
-          fontWeight: "400",
-          gap: "1rem",
-        }}
-      >
-        <p>From the House of FBI (Farcaster Builders India)</p>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <span style={{ textAlign: "right" }}>Follow us on -</span>
-          <a href="https://warpcast.com/~/channel/fbi">
-            <img
-              src="https://res.cloudinary.com/dczghbro7/image/upload/v1712654614/farcaster-icon_wpzjtc.svg"
-              width="24"
-              height="24"
-              alt="Farcaster logo"
-            />
-          </a>
-          <a href="https://twitter.com/callusfbi">
-            <img
-              src="https://res.cloudinary.com/dczghbro7/image/upload/v1712654614/x-icon_fole7t.svg"
-              width="24"
-              height="24"
-              alt="X logo"
-            />
-          </a>
-        </div>
-      </footer>
     </div>
   );
 };

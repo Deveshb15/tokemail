@@ -4,14 +4,16 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAccount, useBalance } from "wagmi";
-import { shortenAddress } from "@/lib/utils";
+import { TOKEN_NAME, shortenAddress } from "@/lib/utils";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { usePrivy } from "@privy-io/react-auth";
 
 type Transaction = {
   type: string;
   amount: number;
   recipient?: `0x${string}`;
+  email?: string;
   sender?: `0x${string}`;
   hash: string;
 };
@@ -42,12 +44,13 @@ const TransactionHistory = () => {
   //   },
   // ];
 
-  const { address, isConnected, chainId } = useAccount();
-
   const router = useRouter()
 
+  const { address, isConnected, chainId } = useAccount();
+  const { user, authenticated } = usePrivy();
+
   useEffect(() => {
-    if (!isConnected) {
+    if (!isConnected && !authenticated) {
       router.push('/')
     }
   })
@@ -59,11 +62,12 @@ const TransactionHistory = () => {
         .from("tips")
         .select("*")
         .eq("sender", address);
+      
       const { data: recipientData, error: recipientError } =
         await supabase
           .from("tips")
           .select("*")
-          .eq("recipient_address", address);
+          .eq("recipient_address", address?.length ? address : user?.wallet?.address);
       if (!senderError && !recipientError) {
         let transactions: Array<Transaction> = [];
         senderData.forEach((data) => {
@@ -71,6 +75,7 @@ const TransactionHistory = () => {
             type: "gift",
             amount: data.amount,
             recipient: data.recipient_address,
+            email: data.recipient,
             sender: address,
             hash: data.sender_hash,
           });
@@ -80,6 +85,7 @@ const TransactionHistory = () => {
             type: "receive",
             amount: data.amount,
             sender: data.sender,
+            email: data.recipient,
             recipient: address,
             hash: data.recipient_hash,
           });
@@ -97,7 +103,7 @@ const TransactionHistory = () => {
 
   return (
     <Card>
-      {!isConnected ? (
+      {(!isConnected && !authenticated) ? (
         <div className="flex items-center justify-center h-[20vh] px-4">
           <p className="text-light-grey text-center font-sans font-medium text-base">
             Please your Connect Wallet
@@ -118,8 +124,7 @@ const TransactionHistory = () => {
                   {transaction.type === "gift" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
                       <span className="font-bold text-dark-purple">
-                        {transaction.amount} $
-                        {balance.data?.symbol}
+                        {transaction.amount} ${TOKEN_NAME}
                       </span>{" "}
                       to{" "}
                       <Link
@@ -127,19 +132,19 @@ const TransactionHistory = () => {
                         href={`https://rainbow.me/${transaction.recipient}`}
                         className="font-bold"
                       >
-                        {shortenAddress(
+                        {/* {shortenAddress(
                           transaction.recipient as `0x${string}`,
                           0,
                           5
-                        )}
+                        )} */}
+                        {transaction.email}
                       </Link>{" "}
                     </p>
                   )}
                   {transaction.type === "receive" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
                       <span className="font-bold text-dark-purple">
-                        {transaction.amount} $
-                        {balance.data?.symbol}
+                        {transaction.amount} $HIGHER
                       </span>{" "}
                       from{" "}
                       <Link
@@ -156,7 +161,7 @@ const TransactionHistory = () => {
                     </p>
                   )}
                   <Link
-                    href={`${chainId == 8453 ? `https://basescan.org/tx/${transaction.hash}` : `https://sepolia.basescan.org/${transaction.hash}`}`}
+                    href={`${chainId == 8453 ? `https://basescan.org/tx/${transaction.hash}` : `https://sepolia.basescan.org/tx/${transaction.hash}`}`}
                     target="_blank"
                     className="flex items-center gap-1 text-grey font-sans text-base font-normal leading-loose"
                   >
