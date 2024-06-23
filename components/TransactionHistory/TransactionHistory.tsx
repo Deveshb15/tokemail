@@ -44,7 +44,16 @@ const TransactionHistory = () => {
   //   },
   // ];
 
+  const router = useRouter()
+
   const { address, isConnected, chainId } = useAccount();
+  const { user, authenticated } = usePrivy();
+
+  useEffect(() => {
+    if (!isConnected && !authenticated) {
+      router.push('/')
+    }
+  })
 
   const { data: transactions } = useQuery({
     queryKey: ["TransactionHistory"],
@@ -58,7 +67,7 @@ const TransactionHistory = () => {
         await supabase
           .from("tips")
           .select("*")
-          .eq("recipient_address", address);
+          .eq("recipient_address", address?.length ? address : user?.wallet?.address);
       if (!senderError && !recipientError) {
         let transactions: Array<Transaction> = [];
         senderData.forEach((data) => {
@@ -94,7 +103,7 @@ const TransactionHistory = () => {
 
   return (
     <Card>
-      {!isConnected ? (
+      {(!isConnected && !authenticated) ? (
         <div className="flex items-center justify-center h-[20vh] px-4">
           <p className="text-light-grey text-center font-sans font-medium text-base">
             Please your Connect Wallet
@@ -135,8 +144,7 @@ const TransactionHistory = () => {
                   {transaction.type === "receive" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
                       <span className="font-bold text-dark-purple">
-                        {transaction.amount} $
-                        {balance.data?.symbol}
+                        {transaction.amount} $HIGHER
                       </span>{" "}
                       from{" "}
                       <Link
