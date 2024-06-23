@@ -17,10 +17,11 @@ const SentMessage = () => {
           Successfully sent
           <div className="flex gap-1 items-center">
             <Image
-              src="/degen-icon.png"
+              src="/higher-icon.png"
               width={24}
               height={24}
-              alt="Degen Icon"
+              className="rounded-full"
+              alt="Higher Icon"
             />
             <span className="text-dark-purple">${TOKEN_NAME}</span>
           </div>
