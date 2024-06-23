@@ -12,6 +12,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { TOKEN_NAME } from "@/lib/utils";
 
 export function Email({
   uid,
@@ -49,7 +50,7 @@ export function Email({
                 paddingTop: "2rem",
               }}
             >
-              $HIGHERLINK
+              ${TOKEN_NAME}LINK
             </Text>
             <Heading
               as="h2"
@@ -97,7 +98,7 @@ export function Email({
                 marginBottom: "2rem",
               }}
             >
-              You just received {amount} $HIGHER
+              You just received {amount} ${TOKEN_NAME}
             </Text>
             {note && (
               <Text
@@ -327,7 +328,7 @@ export function Email({
                     marginBottom: "2rem",
                   }}
                 >
-                  Now, Click the below link to Claim your $HIGHER.
+                  Now, Click the below link to Claim your ${TOKEN_NAME}.
                 </Text>
                 <Link
                   href={`https://degenlink.io/claim?uid=${uid}`}
@@ -343,7 +344,7 @@ export function Email({
                     width: "100%",
                   }}
                 >
-                  Claim $HIGHER
+                  Claim ${TOKEN_NAME}
                 </Link>
               </Section>
             </Section>

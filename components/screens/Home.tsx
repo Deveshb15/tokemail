@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { TOKEN_NAME } from "@/lib/utils";
 
 const Home = () => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const Home = () => {
         >
           Onboard your friends
           <br /> onchain with{" "}
-          <span className="text-purple">$HIGHER</span>
+          <span className="text-purple">${TOKEN_NAME}</span>
         </h2>
         <ConnectButton />
       </div>

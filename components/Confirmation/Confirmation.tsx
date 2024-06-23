@@ -7,13 +7,13 @@ import { useExchangeRate } from "@/hooks/useExchangeRate";
 import { supabase } from "@/lib/supabase";
 import { useAccount, useWriteContract } from "wagmi";
 import { v4 } from "uuid";
-import { abi } from "@/lib/utils";
 import { parseEther } from "viem";
 import { generateMnemonic, english, mnemonicToAccount } from "viem/accounts";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import splitbee from "@splitbee/web";
+import { HIGHER_CONTRACT_ADDRESS, TRANSFER_ABI, MIDDLE_WALLET, SEPOLIA_CONTRACT_ADDRESS } from "@/lib/utils"
 
 const Confirmation = () => {
   const router = useRouter();
@@ -29,65 +29,26 @@ const Confirmation = () => {
     setLoading(true);
     console.log("confirming");
 
-    const seed = generateMnemonic(english, 256);
-    console.log(seed);
-    const account = mnemonicToAccount(seed).address;
-    console.log(account);
+    // const seed = generateMnemonic(english, 256);
+    // console.log(seed);
+    // const account = mnemonicToAccount(seed).address;
+    // console.log(account);
     const claim_uid = v4();
 
     splitbee.track("Click Confirm Transaction");
 
-    // console.log("AMOUNT ", String(amount))
-    // const hash = await writeContractAsync({
-    //   address:
-    //     chainId === 8453
-    //     ? "0x55d6Da3732babC063bAa40FF4BbB53dCF113F265"
-    //       : "0x5bb117F0f9d8877bDbA2B07955E73e85fc2eb93e",
-    //   abi,
-    //   functionName: "addTip",
-    //   args: [account],
-    //   value: parseEther(String(amount)),
-    // });
-  //  let hash = "0x36787943b0ab34e4bf213cbf0c895e558df3f6aabb099e53657f31206c07eb64"
-  // send the amount of higher(name of the token) token
-  // 0x0578d8a44db98b23bf096a382e016e29a5ce0ffe - higher token contract
     const hash = await writeContractAsync({
-      address: chainId === 8453 ? "0x0578d8a44db98b23bf096a382e016e29a5ce0ffe" : "0xc2d646D2e9b737fC0563E289c1403326E937ca44",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-          ],
-          name: "transfer",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
+      address: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
+      abi: TRANSFER_ABI,
       functionName: "transfer",
-      args: [account, parseEther(String(amount))],
+      args: [MIDDLE_WALLET, parseEther(String(amount))],
     });
 
     console.log("HASH ", hash);
     const { data } = await axios.post("/api/mail", {
       uid: claim_uid,
       email,
-      seed,
+      seed: "hello",
       note,
       amount,
     });
@@ -96,7 +57,7 @@ const Confirmation = () => {
     const { error } = await supabase.from("tips").insert({
       sender: address,
       recipient: email,
-      recipient_address: account,
+      // recipient_address: account,
       claimed: false,
       claim_uid,
       sender_hash: hash,

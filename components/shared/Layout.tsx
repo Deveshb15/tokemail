@@ -5,6 +5,7 @@ import ShareModal from "../ShareModal/ShareModal";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { TOKEN_NAME } from "@/lib/utils";
 
 const Layout = ({ children }: { children: React.JSX.Element }) => {
   const [share, setShare] = useState(false);
@@ -12,14 +13,14 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
   return (
     <div className={clsx(router.pathname != "/" && "md:pt-10")}>
       <Head>
-        <title>HigherLink - Onboard your friends OnChain with $HIGHER</title>
+        <title>{TOKEN_NAME}Link - Onboard your friends OnChain with ${TOKEN_NAME}</title>
         <meta
           property="og:title"
-          content="HigherLink - Onboard your friends OnChain with $HIGHER"
+          content={`${TOKEN_NAME}Link - Onboard your friends OnChain with $${TOKEN_NAME}`}
         />
         <meta
           property="og:description"
-          content="Quickest way to onboard someone to $HIGHER through gift cards."
+          content={`Quickest way to onboard someone to $${TOKEN_NAME} through gift cards.`}
         />
         <meta
           property="og:image"

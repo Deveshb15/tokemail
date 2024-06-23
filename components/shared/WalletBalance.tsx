@@ -8,6 +8,8 @@ import { useExchangeRate } from "@/hooks/useExchangeRate";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS } from "@/lib/utils";
+import { config } from "@/lib/config";
 
 type WalletBalanceProps = {
   dashboard?: boolean;
@@ -30,12 +32,13 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
         }
       }).then(res => setEns(res.data))
     }
-  })
+  }, [address])
 
+  const { chainId } = useAccount()
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
+    token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
   });
-  const { chainId } = useAccount()
   const { data: rateData } = useExchangeRate(chainId as number);
 
   const router = useRouter();
@@ -61,7 +64,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
           </p>
         </div>
         <p className="text-white font-sans text-base leading-loose hidden sm:block">
-          1 ${balanceData?.symbol} :{" "}
+          1 ${balanceData?.symbol ?? "HIGHER"} :{" "}
           <span className="font-bold">${rateData?.rate}</span>
         </p>
       </div>

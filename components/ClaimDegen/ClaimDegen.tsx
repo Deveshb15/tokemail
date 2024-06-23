@@ -10,6 +10,7 @@ import { base } from "viem/chains";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useWalletClient } from "wagmi";
 import splitbee from "@splitbee/web";
+import { TOKEN_NAME } from "@/lib/utils";
 
 const ClaimDegen = () => {
   const router = useRouter();
@@ -64,12 +65,12 @@ const ClaimDegen = () => {
   const { data: walletClient } = useWalletClient();
   const handleAdd = async () => {
     await walletClient?.addChain({ chain: base });
-    toast.success("Successfully added HIGHER Chain to wallet");
+    toast.success(`Successfully added ${TOKEN_NAME} Chain to wallet`);
   };
   return (
     <div>
       <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center   bg-[url('/background.svg')] bg-[#33106D] [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-        CLAIM $HIGHER
+        CLAIM ${TOKEN_NAME}
       </div>
       <Card>
         <div className="flex flex-col items-center py-12 sm:px-12 px-6">
@@ -78,7 +79,7 @@ const ClaimDegen = () => {
             <br /> the world of Web3
           </h3>
           <Button
-            content="CLAIM $HIGHER"
+            content={`CLAIM $${TOKEN_NAME}`}
             onClick={handleClaim}
             loading={loading}
           />
@@ -95,7 +96,7 @@ const ClaimDegen = () => {
               className="py-6 px-8 rounded-xl font-bold text-center font-sans text-base leading-loose border border-dark-purple border-solid text-dark-purple"
               onClick={handleAdd}
             >
-              Add HIGHER to Wallet
+              Add {TOKEN_NAME} to Wallet
             </ShadButton>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { TOKEN_NAME } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -22,7 +23,7 @@ const ShareModal = ({
         />
       </button>
       <h3 className="text-dark-grey text-center font-sans text-xl font-semibold leading-6 mb-8">
-        Share HigherLink
+        Share {TOKEN_NAME}Link
       </h3>
       <p className="text-dark-grey font-sans text-base font-medium leading-5">
         Copy link
@@ -47,7 +48,7 @@ const ShareModal = ({
       </div>
       <div className="flex justify-evenly mt-8">
         <Link
-          href={`https://warpcast.com/~/compose?text=I just gifted some $HIGHER to a friend on degenlink.io!&embeds[]=https://degenlink.io`}
+          href={`https://warpcast.com/~/compose?text=I just gifted some $${TOKEN_NAME} to a friend on degenlink.io!&embeds[]=https://degenlink.io`}
           target="_blank"
           className="flex flex-col items-center gap-3"
         >
@@ -63,7 +64,7 @@ const ShareModal = ({
         </Link>
         <Link
           target="_blank"
-          href={`https://twitter.com/intent/tweet?text=I just gifted some $HIGHER to a friend on degenlink.io!`}
+          href={`https://twitter.com/intent/tweet?text=I just gifted some $${TOKEN_NAME} to a friend on degenlink.io!`}
           className="flex flex-col items-center gap-3"
         >
           <Image src="/x-logo.svg" alt="X Logo" width={48} height={48} />

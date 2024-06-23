@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { TOKEN_NAME } from "@/lib/utils";
+
 const Emailer = ({
   uid,
   note,
@@ -35,7 +37,7 @@ const Emailer = ({
             textShadow: "0 4px 0 rgba(146, 97, 225, 1)",
           }}
         >
-          $HIGHERLINK
+          ${TOKEN_NAME}LINK
         </div>
         <h2
           style={{
@@ -77,7 +79,7 @@ const Emailer = ({
           Hey 👋
           <br />
           <br />
-          You just received {amount} $HIGHER
+          You just received {amount} ${TOKEN_NAME}
         </p>
         {note && (
           <p
@@ -310,7 +312,7 @@ const Emailer = ({
                 marginBottom: "2rem",
               }}
             >
-              Now, Click the below link to Claim your $HIGHER.
+              Now, Click the below link to Claim your ${TOKEN_NAME}.
             </p>
             <a
               href={`https://degenlink-web.vercel.app/claim?uid=${uid}`}
@@ -326,7 +328,7 @@ const Emailer = ({
                 width: "100%",
               }}
             >
-              Claim $HIGHER
+              Claim ${TOKEN_NAME}
             </a>
           </div>
         </div>

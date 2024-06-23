@@ -23,7 +23,7 @@ import Layout from "@/components/shared/Layout";
 import splitbee from '@splitbee/web';
 
 const config = getDefaultConfig({
-  appName: 'HigherLink',
+  appName: "HigherLINK",
   projectId: '7febbd905df720d5866a44b58cd1b1a9',
   chains: [base, baseSepolia],
 });
