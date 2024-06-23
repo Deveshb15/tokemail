@@ -53,6 +53,7 @@ const ClaimDegen = () => {
             console.log("HASH ", hash);
             toast.success("Sucessfully Claimed the Tip!");
             setAllowExport(true);
+            router.push("/claim/dashboard");
           } else {
             toast.error("Something went wrong, contact the team.");
           }
@@ -65,6 +66,7 @@ const ClaimDegen = () => {
     } else {
       toast.error("This Claim doesn't exist!");
     }
+    toast.dismiss();
     setLoading(false);
   };
   const { isConnected } = useAccount();
@@ -115,6 +117,7 @@ const ClaimDegen = () => {
             <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
               This Claim has already been claimed
             </h3>
+            <Button content={`Export Wallet`} onClick={exportWallet} />
           </div>
         </Card>
       ) : (
@@ -136,7 +139,7 @@ const ClaimDegen = () => {
               )
             ) : (
               <Button
-                content={`CLAIM $${TOKEN_NAME}`}
+                content={`Create Account to Claim $${TOKEN_NAME}`}
                 onClick={login}
                 loading={loading}
               />

@@ -80,10 +80,11 @@ const Confirmation = () => {
           <span>Sending</span>
           <div className="flex gap-1 items-center">
             <Image
-              src="/degen-icon.png"
+              src="/higher-icon.png"
               width={24}
               height={24}
-              alt="Degen Icon"
+              className="rounded-full"
+              alt="Higher Icon"
             />
             {amount}
           </div>

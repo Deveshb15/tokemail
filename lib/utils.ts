@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const TOKEN_NAME = "HIGHER"
 
-export const MIDDLE_WALLET = "0x2BA4f0484085F0F9ad7887Ce3eE37C98A51E1Df2"
+export const MIDDLE_WALLET = "0xf4167D9B9341bf7eD0De757897F73A014a670eb8"
 
 export const HIGHER_CONTRACT_ADDRESS= "0x0578d8a44db98b23bf096a382e016e29a5ce0ffe"
 

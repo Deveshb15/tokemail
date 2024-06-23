@@ -60,6 +60,7 @@ const TransactionHistory = () => {
         .from("tips")
         .select("*")
         .eq("sender", address);
+      
       const { data: recipientData, error: recipientError } =
         await supabase
           .from("tips")
