@@ -45,15 +45,6 @@ const TransactionHistory = () => {
   // ];
 
   const { address, isConnected, chainId } = useAccount();
-  const { authenticated } = usePrivy()
-
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!isConnected || !authenticated) {
-      router.push('/')
-    }
-  })
 
   const { data: transactions } = useQuery({
     queryKey: ["TransactionHistory"],
