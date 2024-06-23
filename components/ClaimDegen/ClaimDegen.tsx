@@ -19,6 +19,7 @@ const ClaimDegen = () => {
   const [loading, setLoading] = useState(false);
   const [claimData, setClaimData] = useState<any>({});
   const [allowExport, setAllowExport] = useState(false);
+  const [claimStarted, setClaimStarted] = useState(false);
 
   const { login, user, exportWallet, ready, authenticated } = usePrivy();
 
@@ -71,10 +72,6 @@ const ClaimDegen = () => {
   };
   const { isConnected } = useAccount();
   const { data: walletClient } = useWalletClient();
-  const handleAdd = async () => {
-    await walletClient?.addChain({ chain: base });
-    toast.success(`Successfully added ${TOKEN_NAME} Chain to wallet`);
-  };
 
   const handleClaimDetails = async (claim_uid: string) => {
     try {
@@ -104,7 +101,21 @@ const ClaimDegen = () => {
     }
   }, [uid]);
 
-  console.log("CLAIM DATA ", claimData);
+  useEffect(() => {
+    if (user?.wallet?.address && !claimStarted) {
+      setLoading(true);
+      console.log("CLAIM STARTED");
+      setClaimStarted(true);
+      handleClaim().then(() => {
+        setLoading(false);
+      }).catch((e) => {
+        console.error("ERROR ", e);
+        setLoading(false);
+      })
+    }
+  }, [user?.wallet?.address]);
+
+  console.log("CLAIM DATA ", user?.wallet?.address, claimData, loading);
 
   return (
     <div>
@@ -133,15 +144,15 @@ const ClaimDegen = () => {
               ) : (
                 <Button
                   content={`Claim $${TOKEN_NAME}`}
-                  onClick={handleClaim}
+                  onClick={login}
                   disabled={loading}
                 />
               )
             ) : (
               <Button
-                content={`Create Account to Claim $${TOKEN_NAME}`}
+                content={`Claim ${claimData.amount ?? ""} $${TOKEN_NAME}`}
                 onClick={login}
-                loading={loading}
+                disabled={loading}
               />
             )}
           </div>

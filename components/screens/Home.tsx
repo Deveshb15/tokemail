@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { TOKEN_NAME } from "@/lib/utils";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Home = () => {
   const router = useRouter();
@@ -25,10 +26,16 @@ const Home = () => {
   });
 
   const { isConnected } = useAccount();
+  const { authenticated, ready } = usePrivy()
 
   useEffect(() => {
     if (isConnected) router.push("/dashboard");
   }, [isConnected]);
+
+  console.log("AUTHENTICATED ", authenticated, ready);
+  // useEffect(() => {
+  //   if (authenticated && ready) router.push("/claim/dashboard");
+  // }, [authenticated, ready]);
 
   return (
     <>

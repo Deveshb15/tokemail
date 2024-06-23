@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         // from: 'Degenlink <gm@degenlink.io>',
         from: "DEVESH <devesh@deveshb.tech>",
         to: [email],
-        subject: "You've been served some DEGEN",
+        subject: "You've been served some HIGHER",
         react: Email({ uid, seed, note, amount }),
     });
 
