@@ -136,7 +136,7 @@ export function Email({
                   Now, Click the below link to Claim your ${TOKEN_NAME}.
                 </Text>
                 <Link
-                  href={`https://degenlink.io/claim?uid=${uid}`}
+                  href={`https://higher-link.vercel.app/claim?uid=${uid}`}
                   style={{
                     textDecoration: "none",
                     padding: "1rem 2rem",

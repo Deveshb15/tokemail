@@ -26,16 +26,16 @@ const Home = () => {
   });
 
   const { isConnected } = useAccount();
-  const { authenticated, ready } = usePrivy()
+  const { authenticated, ready, exportWallet } = usePrivy()
 
   useEffect(() => {
     if (isConnected) router.push("/dashboard");
   }, [isConnected]);
 
   console.log("AUTHENTICATED ", authenticated, ready);
-  // useEffect(() => {
-  //   if (authenticated && ready) router.push("/claim/dashboard");
-  // }, [authenticated, ready]);
+  useEffect(() => {
+    if (authenticated && ready) router.push("/claim/dashboard");
+  }, [authenticated, ready]);
 
   return (
     <>
@@ -58,7 +58,15 @@ const Home = () => {
           <br /> onchain with{" "}
           <span className="text-purple">${TOKEN_NAME}</span>
         </h2>
-        <ConnectButton />
+        {
+          (authenticated && ready) ? (
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-4 px-8 rounded-lg">
+              Export Wallet
+            </button>
+          ) : (
+            <ConnectButton />
+          )
+        }
       </div>
       <Footer />
     </>
