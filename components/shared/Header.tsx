@@ -36,7 +36,7 @@ const Header = ({
         </button>
         {
           (authenticated && ready) ? (
-            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-4 px-8 rounded-lg">
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
           ) : (
@@ -85,7 +85,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
         </button>
         {
           (authenticated && ready) ? (
-            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-4 px-8 rounded-lg">
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
           ) : (

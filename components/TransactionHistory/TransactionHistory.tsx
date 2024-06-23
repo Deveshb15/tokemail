@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAccount, useBalance } from "wagmi";
-import { shortenAddress } from "@/lib/utils";
+import { TOKEN_NAME, shortenAddress } from "@/lib/utils";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -122,8 +122,7 @@ const TransactionHistory = () => {
                   {transaction.type === "gift" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
                       <span className="font-bold text-dark-purple">
-                        {transaction.amount} $
-                        {balance.data?.symbol}
+                        {transaction.amount} ${TOKEN_NAME}
                       </span>{" "}
                       to{" "}
                       <Link
