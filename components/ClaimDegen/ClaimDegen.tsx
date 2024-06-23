@@ -39,7 +39,10 @@ const ClaimDegen = () => {
         if (!hasClaimed) {
           setTimeout(() => {
             toast.success(
-              "Queued the claim, should reflect in your wallet soon"
+              "Queued the claim, should reflect in your wallet soon, please check back in a few minutes.",
+              {
+                duration: 10000,
+              }
             );
             setLoading(false);
           }, 5000);

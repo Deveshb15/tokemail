@@ -2,6 +2,7 @@ import Image from "next/image";
 import Logo from "./Logo";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { usePrivy } from "@privy-io/react-auth";
 
 type MenuProps = {
   toggleMenu: () => void;
@@ -40,6 +41,8 @@ const Header = ({
 };
 
 const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
+  const { authenticated, ready, exportWallet } = usePrivy()
+  
   useEffect(() => {
     if (typeof window != "undefined" && window.document) {
       document.body.style.overflow = "hidden";
@@ -71,7 +74,15 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
         >
           Share
         </button>
-        <ConnectButton />
+        {
+          (authenticated && ready) ? (
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-4 px-8 rounded-lg">
+              Export Wallet
+            </button>
+          ) : (
+            <ConnectButton />
+          )
+        }
       </div>
     </div>
   );
