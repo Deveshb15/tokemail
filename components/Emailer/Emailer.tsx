@@ -333,41 +333,6 @@ const Emailer = ({
           </div>
         </div>
       </div>
-      <footer
-        style={{
-          fontFamily: "Inter, sans-serif",
-          color: "#BEBEBE",
-          fontSize: "0.75rem",
-          backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
-          padding: "1.5rem 1.5rem",
-          justifyContent: "space-between",
-          fontWeight: "400",
-          gap: "1rem",
-        }}
-      >
-        <p>From the House of FBI (Farcaster Builders India)</p>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <span style={{ textAlign: "right" }}>Follow us on -</span>
-          <a href="https://warpcast.com/~/channel/fbi">
-            <img
-              src="https://res.cloudinary.com/dczghbro7/image/upload/v1712654614/farcaster-icon_wpzjtc.svg"
-              width="24"
-              height="24"
-              alt="Farcaster logo"
-            />
-          </a>
-          <a href="https://twitter.com/callusfbi">
-            <img
-              src="https://res.cloudinary.com/dczghbro7/image/upload/v1712654614/x-icon_fole7t.svg"
-              width="24"
-              height="24"
-              alt="X logo"
-            />
-          </a>
-        </div>
-      </footer>
     </div>
   );
 };

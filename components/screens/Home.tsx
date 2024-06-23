@@ -1,5 +1,4 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Footer from "../shared/Footer";
 import Logo from "../shared/Logo";
 import { useAccount } from "wagmi";
 import { useEffect, useState } from "react";
@@ -68,7 +67,6 @@ const Home = () => {
           )
         }
       </div>
-      <Footer />
     </>
   );
 };

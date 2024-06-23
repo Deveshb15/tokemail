@@ -1,7 +1,6 @@
 import SentMessage from "../SentMessage/SentMessage";
 import Header from "../shared/Header";
 import WalletBalance from "../shared/WalletBalance";
-import Footer from "../shared/Footer";
 
 const Sent = () => {
   return (
@@ -11,7 +10,6 @@ const Sent = () => {
         <WalletBalance />
         <SentMessage />
       </div>
-      <Footer />
     </>
   );
 };

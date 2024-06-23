@@ -1,6 +1,5 @@
 import Header from "../shared/Header";
 import WalletBalance from "../shared/WalletBalance";
-import Footer from "../shared/Footer";
 import Confirmation from "../Confirmation/Confirmation";
 
 const Confirm = () => {
@@ -11,7 +10,6 @@ const Confirm = () => {
         <WalletBalance />
         <Confirmation />
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,5 +1,4 @@
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
-import Footer from "../shared/Footer";
 import Header from "../shared/Header";
 import WalletBalance from "../shared/WalletBalance";
 
@@ -11,7 +10,6 @@ const Dashboard = () => {
         <WalletBalance dashboard />
         <TransactionHistory />
       </div>
-      <Footer />
     </>
   );
 };

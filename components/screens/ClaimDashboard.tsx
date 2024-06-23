@@ -1,5 +1,4 @@
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
-import Footer from "../shared/Footer";
 import Header from "../shared/Header";
 import ClaimWalletBalance from "../shared/ClaimWalletBalance";
 
@@ -11,7 +10,6 @@ const ClaimDashboard = () => {
         <ClaimWalletBalance dashboard />
         <TransactionHistory />
       </div>
-      <Footer />
     </>
   );
 };

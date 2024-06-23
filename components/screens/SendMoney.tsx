@@ -1,7 +1,6 @@
 import AddMoney from "../AddMoney/AddMoney";
 import WalletBalance from "../shared/WalletBalance";
 import Header from "../shared/Header";
-import Footer from "../shared/Footer";
 
 const SendMoney = () => {
   return (
@@ -11,7 +10,6 @@ const SendMoney = () => {
         <WalletBalance />
         <AddMoney />
       </div>
-      <Footer />
     </>
   );
 };
