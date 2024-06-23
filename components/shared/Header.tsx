@@ -15,6 +15,7 @@ const Header = ({
   setShare: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { authenticated, ready, exportWallet } = usePrivy()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -33,7 +34,15 @@ const Header = ({
         >
           Share
         </button>
-        <ConnectButton />
+        {
+          (authenticated && ready) ? (
+            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-4 px-8 rounded-lg">
+              Export Wallet
+            </button>
+          ) : (
+            <ConnectButton />
+          )
+        }
       </div>
       {menuOpen && <Menu toggleMenu={toggleMenu} setShare={setShare} />}
     </div>
@@ -42,7 +51,7 @@ const Header = ({
 
 const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
   const { authenticated, ready, exportWallet } = usePrivy()
-  
+
   useEffect(() => {
     if (typeof window != "undefined" && window.document) {
       document.body.style.overflow = "hidden";
