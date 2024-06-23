@@ -12,6 +12,7 @@ type Transaction = {
   type: string;
   amount: number;
   recipient?: `0x${string}`;
+  email?: string;
   sender?: `0x${string}`;
   hash: string;
 };
@@ -71,6 +72,7 @@ const TransactionHistory = () => {
             type: "gift",
             amount: data.amount,
             recipient: data.recipient_address,
+            email: data.recipient,
             sender: address,
             hash: data.sender_hash,
           });
@@ -80,6 +82,7 @@ const TransactionHistory = () => {
             type: "receive",
             amount: data.amount,
             sender: data.sender,
+            email: data.recipient,
             recipient: address,
             hash: data.recipient_hash,
           });
@@ -127,11 +130,12 @@ const TransactionHistory = () => {
                         href={`https://rainbow.me/${transaction.recipient}`}
                         className="font-bold"
                       >
-                        {shortenAddress(
+                        {/* {shortenAddress(
                           transaction.recipient as `0x${string}`,
                           0,
                           5
-                        )}
+                        )} */}
+                        {transaction.email}
                       </Link>{" "}
                     </p>
                   )}
@@ -156,7 +160,7 @@ const TransactionHistory = () => {
                     </p>
                   )}
                   <Link
-                    href={`${chainId == 8453 ? `https://basescan.org/tx/${transaction.hash}` : `https://sepolia.basescan.org/${transaction.hash}`}`}
+                    href={`${chainId == 8453 ? `https://basescan.org/tx/${transaction.hash}` : `https://sepolia.basescan.org/tx/${transaction.hash}`}`}
                     target="_blank"
                     className="flex items-center gap-1 text-grey font-sans text-base font-normal leading-loose"
                   >

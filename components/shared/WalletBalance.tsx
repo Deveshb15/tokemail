@@ -22,6 +22,7 @@ type UserENS = {
 
 const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const { address } = useAccount();
+  console.log("ADDRESS ", address)
   const [ens, setEns] = useState<UserENS | null>(null);
 
   useEffect(() => {

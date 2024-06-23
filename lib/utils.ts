@@ -85,6 +85,7 @@ export const abi = [
 
 export function shortenAddress(address: string, chars = 0, endingChars = 0): string {
   const parsed = getAddress(address)
+  console.log("PARSED ", parsed)
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
