@@ -7,6 +7,7 @@ import { useAccount, useBalance } from "wagmi";
 import { TOKEN_NAME, shortenAddress } from "@/lib/utils";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { usePrivy } from "@privy-io/react-auth";
 
 type Transaction = {
   type: string;
@@ -44,11 +45,12 @@ const TransactionHistory = () => {
   // ];
 
   const { address, isConnected, chainId } = useAccount();
+  const { authenticated } = usePrivy()
 
   const router = useRouter()
 
   useEffect(() => {
-    if (!isConnected) {
+    if (!isConnected || !authenticated) {
       router.push('/')
     }
   })
