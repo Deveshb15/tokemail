@@ -22,15 +22,15 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const { address } = useAccount();
   const [ens, setEns] = useState<UserENS | null>(null);
 
-  useEffect(() => {
-    if (address) {
-      axios.get<UserENS>("/api/ens", {
-        params: {
-          address
-        }
-      }).then(res => setEns(res.data))
-    }
-  })
+  // useEffect(() => {
+  //   if (address) {
+  //     axios.get<UserENS>("/api/ens", {
+  //       params: {
+  //         address
+  //       }
+  //     }).then(res => setEns(res.data))
+  //   }
+  // })
 
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
@@ -60,21 +60,21 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
                 : ""}
           </p>
         </div>
-        <p className="text-white font-sans text-base leading-loose hidden sm:block">
+        {/* <p className="text-white font-sans text-base leading-loose hidden sm:block">
           1 ${balanceData?.symbol} :{" "}
           <span className="font-bold">${rateData?.rate}</span>
-        </p>
+        </p> */}
       </div>
       <div className="flex sm:justify-between sm:items-end items-start flex-col sm:flex-row gap-6">
         <div>
-          <p className="text-dark-purple font-sans font-medium text-base leading-loose mt-6">
-            Wallet Balance
+          <p className="text-white font-sans font-medium text-base leading-loose mt-6">
+            Your Overall Balance
           </p>
           <div className="flex items-center gap-2 my-2">
             <p className="text-white font-sans font-bold leading-loose sm:text-5xl text-2xl [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-              {balanceSuccess ? formatEther(balanceData.value).slice(0, 6) : 0}
+              ${balanceSuccess ? formatEther(balanceData.value).slice(0, 6) : 0}
             </p>
-            <div>
+            {/* <div>
               <div className="text-white font-sans text-base font-medium leading-loose flex items-center gap-1">
                 <Image
                   src="/degen-icon.png"
@@ -84,16 +84,16 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
                 />
                 {balanceData?.symbol}
               </div>
-            </div>
+            </div> */}
           </div>
-          <p className="text-white font-sans text-base font-medium leading-loose">
+          {/* <p className="text-white font-sans text-base font-medium leading-loose">
             ≈ $
             {balanceData &&
               rateData &&
               (rateData?.rate * Number(formatEther(balanceData.value))).toFixed(
                 6
               )}
-          </p>
+          </p> */}
         </div>
         {dashboard && (
           <Button
