@@ -5,7 +5,7 @@ import { Tokens } from '@/hooks/useGetTokens'
 const Assets: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
   return (
     <div>
-      <p  className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter mb-4">All Assets</p>
+      <p  className="text-dark-grey lg:text-base text-sm font-medium leading-loose tracking-tighter mb-4">All Assets</p>
       <ul>
         {tokens?.map((token, index) => (
           <li key={index} className="flex items-center mb-4">

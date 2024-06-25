@@ -14,10 +14,10 @@ const formatOptionLabel = ({ value, label, icon="https://i.ibb.co/ZX63CHy/Expo-A
 const customStyles = {
   control: (provided: any) => ({
     ...provided,
-    backgroundColor: '#9261E1',
+    backgroundColor: '#E8E8E8',
     border: 'none',
     borderRadius: '0.75rem', 
-    padding: '6px 12px',
+    padding: '6px 32px',
     display: 'flex',
     alignItems: 'center',
     color: 'black',
@@ -41,7 +41,7 @@ const customStyles = {
 const DropdownButton: React.FC<{ tokens: Tokens[], selectedToken: any, setSelectedToken: any }> = ({ tokens, selectedToken,  setSelectedToken }) => {
   console.log("TOKENS ", tokens)
   return (
-    <div className="w-48">
+    <div className="">
       <Select
         options={tokens}
         formatOptionLabel={formatOptionLabel}
