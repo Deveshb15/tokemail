@@ -114,7 +114,7 @@ const ClaimDegen = () => {
   return (
     <div>
       <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center  bg-white [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-        CLAIM ${TOKEN_NAME}
+        CLAIM ${claimData?.symbol ?? TOKEN_NAME}
       </div>
       {claimData && claimData.claimed ? (
         <Card>
@@ -137,14 +137,14 @@ const ClaimDegen = () => {
                 <Button content={`Export Wallet`} onClick={exportWallet} />
               ) : (
                 <Button
-                  content={`Claim $${TOKEN_NAME}`}
+                  content={`Claim $${claimData?.symbol ?? TOKEN_NAME}`}
                   onClick={login}
                   disabled={loading}
                 />
               )
             ) : (
               <Button
-                content={`Claim ${claimData.amount ?? ""} $${TOKEN_NAME}`}
+                content={`Claim ${claimData.amount ?? ""} $${claimData?.symbol ?? TOKEN_NAME}`}
                 onClick={login}
                 disabled={loading}
               />
