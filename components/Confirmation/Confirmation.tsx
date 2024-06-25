@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import { supabase } from "@/lib/supabase";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract, useSendTransaction } from "wagmi";
 import { v4 } from "uuid";
 import { parseEther } from "viem";
 import { generateMnemonic, english, mnemonicToAccount } from "viem/accounts";
@@ -13,71 +13,90 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import splitbee from "@splitbee/web";
-import { HIGHER_CONTRACT_ADDRESS, TRANSFER_ABI, MIDDLE_WALLET, SEPOLIA_CONTRACT_ADDRESS } from "@/lib/utils"
+import {
+  HIGHER_CONTRACT_ADDRESS,
+  TRANSFER_ABI,
+  MIDDLE_WALLET,
+  SEPOLIA_CONTRACT_ADDRESS,
+  sleep,
+} from "@/lib/utils";
 
 const Confirmation = () => {
   const router = useRouter();
-  const { amount, email, note, image, symbol, price } = router.query;
+  // const { amount, email, note, image, price, symbol, contract_address } : {amount: string, ema}= router.query;
+  const { amount, email, note, image, price, symbol, contract_address } =
+    router.query as {
+      amount: string;
+      email: string;
+      note: string;
+      image: string;
+      price: string;
+      symbol: string;
+      contract_address: `0x${string}`;
+    };
   const { address, chainId } = useAccount();
   const { data } = useExchangeRate(chainId as number);
 
-  console.log("AMOUNT ", amount);
-  console.log("EMAIL ", email);
-  console.log("NOTE ", note);
-  console.log("IMAGE ", image);
-  console.log("SYMBOL ", symbol);
-  console.log("PRICE ", price);
-
   const { writeContractAsync } = useWriteContract();
+  const { sendTransactionAsync } = useSendTransaction();
 
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
     setLoading(true);
-    console.log("confirming");
-
-    // const seed = generateMnemonic(english, 256);
-    // console.log(seed);
-    // const account = mnemonicToAccount(seed).address;
-    // console.log(account);
     const claim_uid = v4();
 
     splitbee.track("Click Confirm Transaction");
 
-    const hash = await writeContractAsync({
-      address: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
-      abi: TRANSFER_ABI,
-      functionName: "transfer",
-      args: [MIDDLE_WALLET, parseEther(String(amount))],
-    });
+    let hash = "0x0";
+    if (contract_address && contract_address?.length > 0) {
+      hash = await writeContractAsync({
+        address: contract_address,
+        abi: TRANSFER_ABI,
+        functionName: "transfer",
+        args: [MIDDLE_WALLET, parseEther(String(amount))],
+      });
+    } else {
+      hash = await sendTransactionAsync({
+        to: MIDDLE_WALLET,
+        value: parseEther(String(amount)),
+      });
+    }
 
-    console.log("HASH ", hash);
-    const { data } = await axios.post("/api/mail", {
-      uid: claim_uid,
-      email,
-      seed: "hello",
-      note,
-      amount,
-    });
-    console.log("DATA ", data);
+    console.log("HASH", hash);
+    if (hash && hash !== "0x0") {
+      const { data } = await axios.post("/api/mail", {
+        uid: claim_uid,
+        email,
+        seed: "hello",
+        note,
+        amount,
+        symbol,
+      });
 
-    const { error } = await supabase.from("tips").insert({
-      sender: address,
-      recipient: email,
-      // recipient_address: account,
-      claimed: false,
-      claim_uid,
-      sender_hash: hash,
-      amount,
-      chain: chainId,
-    });
+      const { error } = await supabase.from("tips").insert({
+        sender: address,
+        recipient: email,
+        // recipient_address: account,
+        claimed: false,
+        claim_uid,
+        sender_hash: hash,
+        amount,
+        chain: chainId,
+        symbol,
+        token: contract_address ?? "ETH",
+      });
 
-    if (data) toast.success("Tip sent via email");
-    toast.success("Successfully Gifted!");
+      console.log("ERROR", error);
 
-    setTimeout(() => router.push(`/sent?hash=${hash}&email=${email}`));
-
-    setLoading(false);
+      if (data) toast.success("Tip sent via email");
+      toast.success("Successfully Gifted!");
+      setTimeout(() => router.push(`/sent?hash=${hash}&email=${email}&symbol=${symbol}`));
+      setLoading(false);
+    } else {
+      toast.error("Transaction failed");
+      setLoading(false);
+    }
   };
 
   return (
@@ -87,7 +106,10 @@ const Confirmation = () => {
           <span>Sending</span>
           <div className="flex gap-1 items-center">
             <Image
-              src={image as string ?? "https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png"}
+              src={
+                (image as string) ??
+                "https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png"
+              }
               width={24}
               height={24}
               className="rounded-full"
@@ -97,7 +119,8 @@ const Confirmation = () => {
           </div>
           <span>Worth</span>
           <span>
-            ${data && Number(amount) * Number(price)} @ ${price}
+            ${data && (Number(amount) * Number(price))?.toFixed(4)} @ $
+            {Number(price)?.toFixed(4)}
           </span>
         </div>
         <p className="text-dark-grey opacity-60 font-bold text-lg mt-4">

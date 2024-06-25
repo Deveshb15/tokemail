@@ -514,7 +514,7 @@ app.frame("/success", async (c) => {
     from: "RESEND <onboarding@resend.io>",
     to: [email],
     subject: "You've been served some Eth",
-    react: Email({ uid: claim_uid, seed, note, amount: Number(amount) }),
+    react: Email({ uid: claim_uid, seed, note, amount: Number(amount), symbol: "ETH"}),
   });
 
   return c.res({

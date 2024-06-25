@@ -91,3 +91,5 @@ export function shortenAddress(address: string, chars = 0, endingChars = 0): str
   }
   return `${parsed.substring(0, chars + 5)}...${endingChars ? `${parsed.substring(42 - endingChars)}` : ``}`
 }
+
+export const sleep = async(ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

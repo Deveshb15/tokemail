@@ -9,7 +9,7 @@ import { TOKEN_NAME } from "@/lib/utils";
 const SentMessage = () => {
   const router = useRouter();
   const { chainId } = useAccount();
-  const { hash, email } = router.query;
+  const { hash, email, symbol } = router.query;
   return (
     <Card>
       <div className="flex flex-col items-center font-sans sm:py-16 py-8">
@@ -23,7 +23,7 @@ const SentMessage = () => {
               className="rounded-full"
               alt="Higher Icon"
             />
-            <span className="text-dark-purple">${TOKEN_NAME}</span>
+            <span className="text-dark-purple">${symbol}</span>
           </div>
           to
         </div>

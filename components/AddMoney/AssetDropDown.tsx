@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { Tokens } from '@/hooks/useGetTokens'
 
 const formatOptionLabel = ({ value, label, icon="https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png" }: any, { context }: any) => (
-    <div className="flex items-center">
+    <div className="flex flex-row items-center justify-start">
       <Image width={10} height={10} src={icon} alt={label} className="w-5 h-5 mr-2" />
       <span className={context === 'value' ? 'text-white' : 'text-dark-grey'}>{label}</span>
     </div>
@@ -17,12 +17,13 @@ const customStyles = {
     backgroundColor: '#E8E8E8',
     border: 'none',
     borderRadius: '0.75rem', 
-    padding: '6px 32px',
+    padding: '6px 18px',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     color: 'black',
     cursor: 'pointer',
-    
+    flexDirection: 'row',
   }),
   singleValue: (provided: any) => ({
     ...provided,
@@ -47,6 +48,7 @@ const DropdownButton: React.FC<{ tokens: Tokens[], selectedToken: any, setSelect
         formatOptionLabel={formatOptionLabel}
         styles={customStyles}
         value={selectedToken}
+        defaultValue={selectedToken}
         isSearchable={false}
         onChange={(selectedOption) => setSelectedToken(selectedOption)}
       />

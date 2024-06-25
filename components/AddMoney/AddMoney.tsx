@@ -19,9 +19,6 @@ const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
   const [selectedAmount, setSelectedAmount] = useState("");
   const [email, setEmail] = useState("");
-  const [note, setNote] = useState(
-    `Welcome to the other side my fren, enjoy the $${TOKEN_NAME}`
-  );
   const [selectedToken, setSelectedToken] = useState<null | any>(null);
 
   const { address, chainId } = useAccount();
@@ -66,7 +63,7 @@ const AddMoney = () => {
                   <input
                     id="higherAmount"
                     placeholder={`1 ${selectedToken?.symbol}`}
-                    className="bg-beige outline-none py-4"
+                    className="bg-medium-grey outline-none py-4"
                     value={selectedAmount}
                     onChange={handleAmountChange}
                   />
@@ -87,7 +84,7 @@ const AddMoney = () => {
             </label>
             {
               (tokensData?.tokens.length ?? 0) > 0 && (
-                <div className="mt-8 ml-2">
+                <div className="mt-8 ml-2 flex flex-row items-center justify-center bg-medium-grey rounded-xl text-dark-grey">
                   <DropdownButton tokens={tokensData?.tokens ?? []} selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
                 </div>
               )
@@ -116,7 +113,7 @@ const AddMoney = () => {
               content="SEND"
               onClick={() =>
                 router.push(
-                  `/confirm?amount=${selectedAmount}&email=${email}&note=${note}&image=${selectedToken?.icon}&symbol=${selectedToken?.symbol}&price=${selectedToken?.price}`
+                  `/confirm?amount=${selectedAmount}&email=${email}&note="Welcome to the other side my fren, enjoy the $${selectedToken?.symbol ?? "TOKEN"}"&image=${selectedToken?.icon}&contract_address=${selectedToken?.address ?? ""}&symbol=${selectedToken.symbol}&price=${selectedToken?.price}`
                 )
               }
               disabled={selectedAmount == "" || email == ""}
