@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS } from "@/lib/utils";
 import { config } from "@/lib/config";
+import { useGetTokens } from "@/hooks/useGetTokens";
 
 type WalletBalanceProps = {
   dashboard?: boolean;
@@ -23,24 +24,13 @@ type UserENS = {
 const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const { address } = useAccount();
   console.log("ADDRESS ", address)
-  const [ens, setEns] = useState<UserENS | null>(null);
 
-  // useEffect(() => {
-  //   if (address) {
-  //     axios.get<UserENS>("/api/ens", {
-  //       params: {
-  //         address
-  //       }
-  //     }).then(res => setEns(res.data))
-  //   }
-  // })
-
-  const { chainId } = useAccount()
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
-    token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
+    // token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
   });
-  const { data: rateData } = useExchangeRate(chainId as number);
+  // const { data: rateData } = useExchangeRate(chainId as number);
+  const { data: tokenData }  = useGetTokens(address as string)
 
   const router = useRouter();
 
@@ -50,16 +40,14 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
         <div className="flex items-center gap-2">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-0 bg-white">
             <Image
-              src={ens && ens.avatar ? String(ens.avatar) : "https://res.cloudinary.com/metapass/image/upload/v1712752332/pexels-codioful-_formerly-gradienta_-6985003_rbhkfe.jpg"}
+              src={"https://res.cloudinary.com/metapass/image/upload/v1712752332/pexels-codioful-_formerly-gradienta_-6985003_rbhkfe.jpg"}
               fill
               alt="Avatar"
             />
           </div>
           <p className="text-white text-center font-sans font-medium leading-loose text-lg">
             GM{" "}
-            {ens
-              ? ens.ens
-              : address
+            {address
                 ? address.slice(0, 3) + "..." + address.slice(-3)
                 : ""}
           </p>
@@ -76,7 +64,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
           </p>
           <div className="flex items-center gap-2 my-2">
             <p className="text-white font-sans font-bold leading-loose sm:text-5xl text-2xl [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-              ${balanceSuccess ? formatEther(balanceData.value).slice(0, 6) : 0}
+              ${tokenData?.tokens?.length! > 0 ? tokenData?.tokens.reduce((prev, curr) => prev + curr.token_value, 0)?.toFixed(2) : 0}
             </p>
             {/* <div>
               <div className="text-white font-sans text-base font-medium leading-loose flex items-center gap-1">
@@ -107,7 +95,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             }}
             className="bg-dark-purple py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
           >
-            GIFT ${balanceData?.symbol}
+            GIFT TOKENS
           </Button>
         )}
       </div>

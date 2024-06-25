@@ -42,7 +42,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
 
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
-    token: HIGHER_CONTRACT_ADDRESS,
+    // token: HIGHER_CONTRACT_ADDRESS,
   });
 
   console.log("BALANCE DATA ", balanceData);

@@ -2,12 +2,13 @@ import { ChangeEvent, useState } from "react";
 import Button from "../shared/Button";
 import ButtonOutline from "../shared/ButtonOutline";
 import Card from "../shared/Card";
-import { useAccount, useBalance } from "wagmi";
+import { createConfig, useAccount, useBalance } from "wagmi";
 import { formatEther } from "viem";
 import { useRouter } from "next/router";
 import Assets from "./AssetList";
 import DropdownButton from "./AssetDropDown";
 import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS, TOKEN_NAME } from "@/lib/utils";
+import { base } from "viem/chains";
 
 const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
@@ -20,7 +21,7 @@ const AddMoney = () => {
   const { address, chainId } = useAccount();
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
-    token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
+    // token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
   });
 
   const router = useRouter();
