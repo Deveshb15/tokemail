@@ -8,17 +8,18 @@ const getTokens = (data: any) => {
     let tokens = []
     for(let token of data) {
         let token_data = {
-            token_name: token.attributes.fungible_info.name,
-            token_symbol: token.attributes.fungible_info.symbol,
-            token_price: token.attributes.price,
-            token_value: token.attributes.value,
-            token_icon: token.attributes.fungible_info.icon?.url,
-            token_quantity: token.attributes.quantity.float,
-            token_decimals: token.attributes.quantity.decimals,
-            token_chain: token.relationships.chain.data.id,
-            token_address: token.attributes.fungible_info.implementations[0].address
+            name: token.attributes.fungible_info.name,
+            label: token.attributes.fungible_info.symbol,
+            symbol: token.attributes.fungible_info.symbol,
+            price: token.attributes.price,
+            value: token.attributes.value,
+            icon: token.attributes.fungible_info.icon?.url,
+            amount: token.attributes.quantity.float,
+            decimals: token.attributes.quantity.decimals,
+            chain: token.relationships.chain.data.id,
+            address: token.attributes.fungible_info.implementations[0].address
         }
-        if(token_data.token_price > 0 && token_data.token_value > 0 && token_data.token_quantity > 0) {
+        if(token_data.price > 0 && token_data.value > 0 && token_data.amount > 0) {
             tokens.push(token_data)
         }
     }

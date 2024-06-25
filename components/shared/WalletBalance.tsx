@@ -64,7 +64,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
           </p>
           <div className="flex items-center gap-2 my-2">
             <p className="text-white font-sans font-bold leading-loose sm:text-5xl text-2xl [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-              ${tokenData?.tokens?.length! > 0 ? tokenData?.tokens.reduce((prev, curr) => prev + curr.token_value, 0)?.toFixed(2) : 0}
+              ${tokenData?.tokens?.length! > 0 ? tokenData?.tokens.reduce((prev, curr) => prev + curr.value, 0)?.toFixed(2) : 0}
             </p>
             {/* <div>
               <div className="text-white font-sans text-base font-medium leading-loose flex items-center gap-1">

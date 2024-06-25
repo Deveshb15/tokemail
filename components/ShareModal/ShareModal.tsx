@@ -48,7 +48,7 @@ const ShareModal = ({
       </div>
       <div className="flex justify-evenly mt-8">
         <Link
-          href={`https://warpcast.com/~/compose?text=I just gifted some $${TOKEN_NAME} to a friend on higherlink.io!&embeds[]=https://higher-link.vercel.app`}
+          href={`https://warpcast.com/~/compose?text=I just gifted some $${TOKEN_NAME} to a friend on TOKEMAIL.io!&embeds[]=https://higher-link.vercel.app`}
           target="_blank"
           className="flex flex-col items-center gap-3"
         >

@@ -19,7 +19,7 @@ import splitbee from "@splitbee/web";
 import { PrivyProvider } from "@privy-io/react-auth";
 
 const config = getDefaultConfig({
-  appName: "HigherLINK",
+  appName: "TOKEMAIL",
   projectId: "7febbd905df720d5866a44b58cd1b1a9",
   chains: [base, baseSepolia],
   // chains: [base],

@@ -1,11 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-
-const options = [
-  { value: 'btc', label: 'BTC', icon: '/degen-icon.png' },
-  { value: 'eth', label: 'ETH', icon: '/eth-icon.png' },
-  { value: 'sol', label: 'SOL', icon: '/degen-icon.png' },
-];
+import { Tokens } from '@/hooks/useGetTokens'
 
 const formatOptionLabel = ({ value, label, icon }: any, { context }: any) => (
     <div className="flex items-center">
@@ -42,15 +37,17 @@ const customStyles = {
   }),
 };
 
-const DropdownButton: React.FC = () => {
+const DropdownButton: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
+  console.log("TOKENS ", tokens)
   return (
     <div className="w-48">
       <Select
-        options={options}
+        options={tokens}
         formatOptionLabel={formatOptionLabel}
         styles={customStyles}
-        defaultValue={options[0]}
+        defaultValue={tokens[0]}
         isSearchable={false}
+        onChange={(selectedOption) => console.log(selectedOption)}
       />
     </div>
   );

@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-type Tokens = {
-    token_name: string,
-    token_symbol: string,
-    token_price: number,
-    token_value: number,
-    token_icon: string,
-    token_quantity: number,
-    token_decimals: number,
-    token_chain: string,
-    token_address: string
+export type Tokens = {
+    name: string,
+    label: string,
+    symbol: string,
+    price: number,
+    value: number,
+    icon: string,
+    amount: number,
+    decimals: number,
+    chain: string,
+    address: string
   }
 
 export const useGetTokens = (address: string) => {
