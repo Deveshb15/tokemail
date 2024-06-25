@@ -1,10 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import Select from 'react-select';
 import { Tokens } from '@/hooks/useGetTokens'
 
-const formatOptionLabel = ({ value, label, icon }: any, { context }: any) => (
+const formatOptionLabel = ({ value, label, icon="https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png" }: any, { context }: any) => (
     <div className="flex items-center">
-      <img src={icon} alt={label} className="w-5 h-5 mr-2" />
+      <Image width={10} height={10} src={icon} alt={label} className="w-5 h-5 mr-2" />
       <span className={context === 'value' ? 'text-white' : 'text-dark-grey'}>{label}</span>
     </div>
   );
@@ -37,7 +38,7 @@ const customStyles = {
   }),
 };
 
-const DropdownButton: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
+const DropdownButton: React.FC<{ tokens: Tokens[], selectedToken: any, setSelectedToken: any }> = ({ tokens, selectedToken,  setSelectedToken }) => {
   console.log("TOKENS ", tokens)
   return (
     <div className="w-48">
@@ -45,9 +46,9 @@ const DropdownButton: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
         options={tokens}
         formatOptionLabel={formatOptionLabel}
         styles={customStyles}
-        defaultValue={tokens[0]}
+        value={selectedToken}
         isSearchable={false}
-        onChange={(selectedOption) => console.log(selectedOption)}
+        onChange={(selectedOption) => setSelectedToken(selectedOption)}
       />
     </div>
   );

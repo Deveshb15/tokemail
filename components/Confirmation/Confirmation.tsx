@@ -17,9 +17,16 @@ import { HIGHER_CONTRACT_ADDRESS, TRANSFER_ABI, MIDDLE_WALLET, SEPOLIA_CONTRACT_
 
 const Confirmation = () => {
   const router = useRouter();
-  const { amount, email, note } = router.query;
+  const { amount, email, note, image, symbol, price } = router.query;
   const { address, chainId } = useAccount();
   const { data } = useExchangeRate(chainId as number);
+
+  console.log("AMOUNT ", amount);
+  console.log("EMAIL ", email);
+  console.log("NOTE ", note);
+  console.log("IMAGE ", image);
+  console.log("SYMBOL ", symbol);
+  console.log("PRICE ", price);
 
   const { writeContractAsync } = useWriteContract();
 
@@ -80,7 +87,7 @@ const Confirmation = () => {
           <span>Sending</span>
           <div className="flex gap-1 items-center">
             <Image
-              src="/higher-icon.png"
+              src={image as string ?? "https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png"}
               width={24}
               height={24}
               className="rounded-full"
@@ -90,7 +97,7 @@ const Confirmation = () => {
           </div>
           <span>Worth</span>
           <span>
-            ${data && Number(amount) * data.rate} @ ${data?.rate}
+            ${data && Number(amount) * Number(price)} @ ${price}
           </span>
         </div>
         <p className="text-dark-grey opacity-60 font-bold text-lg mt-4">

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Button from "../shared/Button";
 import ButtonOutline from "../shared/ButtonOutline";
 import Card from "../shared/Card";
@@ -35,12 +35,19 @@ const AddMoney = () => {
   //   setSelectedToken(tokensData?.tokens[0]);
   // }
 
+  useEffect(() => {
+    if(tokensData?.tokens.length ?? 0 > 0) {
+      setSelectedToken(tokensData?.tokens[0]);
+    }
+  }, [!!tokensData?.tokens])
+
   const router = useRouter();
 
   const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedAmount(event.target.value);
   };
 
+  console.log("SELECCted ", selectedToken)
   return (
     <Card>
       <div className="font-sans flex justify-between pb-4 flex-col lg:flex-row gap-4">
@@ -58,7 +65,7 @@ const AddMoney = () => {
                 <div className="bg-beige rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
                   <input
                     id="higherAmount"
-                    placeholder={`1 ${balanceData?.symbol}`}
+                    placeholder={`1 ${selectedToken?.symbol}`}
                     className="bg-beige outline-none py-4"
                     value={selectedAmount}
                     onChange={handleAmountChange}
@@ -67,9 +74,9 @@ const AddMoney = () => {
                     type="button"
                     className="text-dark-grey font-sans lg:text-md text-sm"
                     onClick={() =>
-                      balanceData &&
+                      selectedToken &&
                       setSelectedAmount(
-                        formatEther(balanceData?.value).slice(0, 6)
+                        selectedToken?.amount?.toFixed(4) ?? 0
                       )
                     }
                   >
@@ -81,7 +88,7 @@ const AddMoney = () => {
             {
               (tokensData?.tokens.length ?? 0) > 0 && (
                 <div className="mt-8 ml-2">
-                  <DropdownButton tokens={tokensData?.tokens ?? []} />
+                  <DropdownButton tokens={tokensData?.tokens ?? []} selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
                 </div>
               )
             }
@@ -109,7 +116,7 @@ const AddMoney = () => {
               content="SEND"
               onClick={() =>
                 router.push(
-                  `/confirm?amount=${selectedAmount}&email=${email}&note=${note}`
+                  `/confirm?amount=${selectedAmount}&email=${email}&note=${note}&image=${selectedToken?.icon}&symbol=${selectedToken?.symbol}&price=${selectedToken?.price}`
                 )
               }
               disabled={selectedAmount == "" || email == ""}

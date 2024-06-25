@@ -22,7 +22,17 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.coingecko.com",
         port: "",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.zerion.io",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+        port: "",
+      },
     ],
   },
 };
