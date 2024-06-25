@@ -37,15 +37,6 @@ const ClaimDegen = () => {
       if (!error && data.length > 0) {
         const hasClaimed = data[0].claimed;
         if (!hasClaimed) {
-          setTimeout(() => {
-            toast.success(
-              "Queued the claim, should reflect in your wallet soon, please check back in a few minutes.",
-              {
-                duration: 10000,
-              }
-            );
-            setLoading(false);
-          }, 5000);
           const {
             data: { hash },
           } = await axios.post<{ hash: string }>("/api/claim", {

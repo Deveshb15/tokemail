@@ -47,6 +47,11 @@ const Confirmation = () => {
     const claim_uid = v4();
 
     splitbee.track("Click Confirm Transaction");
+    // get wallet address of email
+    const { data : privyData } = await axios.get(`/api/privy?email=${email}`);
+    const { address: recipient_address } = privyData;
+
+    console.log("RECIPIENT ADDRESS", recipient_address);
 
     let hash = "0x0";
     if (contract_address && contract_address?.length > 0) {
@@ -54,11 +59,11 @@ const Confirmation = () => {
         address: contract_address,
         abi: TRANSFER_ABI,
         functionName: "transfer",
-        args: [MIDDLE_WALLET, parseEther(String(amount))],
+        args: [recipient_address, parseEther(String(amount))],
       });
     } else {
       hash = await sendTransactionAsync({
-        to: MIDDLE_WALLET,
+        to: recipient_address,
         value: parseEther(String(amount)),
       });
     }

@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <PrivyProvider
-            appId="clxr9cygi06gn3v696ck1f0ma"
+            appId="clxus5un301nr137jviotvvjv"
             config={{
               loginMethods: ["email"],
               defaultChain: base,

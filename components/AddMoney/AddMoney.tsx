@@ -58,7 +58,7 @@ const AddMoney = () => {
               className="text-dark-grey lg:text-base font-medium text-sm leading-loose tracking-tighter"
             >
               Enter token amount to send
-              <div className="flex">
+              <div className="flex ">
                 <div className="bg-medium-grey rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
                   <input
                     id="higherAmount"
