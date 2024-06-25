@@ -31,6 +31,7 @@ const config = {
         green: "#3FA681",
         "light-purple": "#B797EB",
         "light-grey": "#A7A7A7",
+        "ultralight-grey": "#A3A3A3",
         grey: "#515151",
         "dark-grey": "#121212",
         beige: "#F2F2F2",

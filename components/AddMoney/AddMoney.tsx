@@ -2,10 +2,13 @@ import { ChangeEvent, useState } from "react";
 import Button from "../shared/Button";
 import ButtonOutline from "../shared/ButtonOutline";
 import Card from "../shared/Card";
-import { useAccount, useBalance } from "wagmi";
+import { createConfig, useAccount, useBalance } from "wagmi";
 import { formatEther } from "viem";
 import { useRouter } from "next/router";
+import Assets from "./AssetList";
+import DropdownButton from "./AssetDropDown";
 import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS, TOKEN_NAME } from "@/lib/utils";
+import { base } from "viem/chains";
 
 const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
@@ -18,7 +21,7 @@ const AddMoney = () => {
   const { address, chainId } = useAccount();
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
-    token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
+    // token: chainId === 8453 ? HIGHER_CONTRACT_ADDRESS : SEPOLIA_CONTRACT_ADDRESS,
   });
 
   const router = useRouter();
@@ -30,12 +33,17 @@ const AddMoney = () => {
   return (
     <Card>
       <div className="font-sans flex justify-between pb-4 flex-col lg:flex-row gap-4">
-        <div className="flex flex-col lg:w-3/5 w-full">
-          <label
+        <div className="flex flex-col lg:w-3/5 w-full">        
+            <Assets/>
+        </div>
+        <div className="lg:flex lg:flex-col md:ml-[20%] items-start w-4/5 lg:gap-4">
+          <div className="md:flex">
+        <label
             htmlFor="higherAmount"
             className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter"
           >
-            Enter {balanceData?.symbol} to send
+            Enter token amount to send
+            <div className="flex">
             <div className="bg-beige rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
               <input
                 id="higherAmount"
@@ -54,52 +62,28 @@ const AddMoney = () => {
               >
                 max
               </button>
+
             </div>
+            </div>
+
           </label>
-          <p className="text-dark-grey lg:text-base leading-loose tracking-tighter mt-4 text-sm">
-            OR choose from
-          </p>
-          <div className="flex gap-4 mt-2 w-fit flex-wrap">
-            {ethAmounts.map((amount) => (
-              <label
-                key={amount}
-                className={`text-sm text-center leading-loose font-medium py-3 px-6 border border-solid rounded-xl border-dark-purple cursor-pointer ${selectedAmount === amount
-                    ? "bg-dark-purple text-white"
-                    : " text-dark-purple"
-                  }`}
-              >
-                <input
-                  type="radio"
-                  name="amount"
-                  value={amount}
-                  onChange={handleAmountChange}
-                  style={{ display: "none" }}
-                />
-                {amount}
-              </label>
-            ))}
+          <div className="mt-8 ml-2">
+          <DropdownButton/>
           </div>
-          <label
+          </div>
+
+          
+        <label
             htmlFor="recipientEmail"
-            className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter flex flex-col mt-8"
+            className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter flex flex-col mt-8 w-full md:w-[80%]"
           >
             Recipient&apos;s Email
             <input
               id="recipientEmail"
               type="email"
               placeholder="Enter Recipient's Email Address"
-              className="bg-beige rounded-xl px-4 sm:px-8 py-4 flex gap-4 items-center mt-2 outline-none"
+              className="bg-beige rounded-xl px-4 sm:px-8 py-4 flex gap-4 items-center mt-2 outline-none w-full"
               onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-        </div>
-        <div className="lg:flex lg:flex-col lg:justify-between items-start lg:items-end w-full lg:gap-4">
-          <label className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter flex flex-col">
-            Add a Note (Optional)
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="bg-beige rounded-xl px-4 sm:px-8 py-4 mt-2 lg:w-[30vw] h-28 resize-none outline-none w-full"
             />
           </label>
           <div className="flex gap-4 mt-4 flex-wrap justify-end">
