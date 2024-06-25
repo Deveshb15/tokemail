@@ -95,7 +95,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             }}
             className="bg-dark-purple py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
           >
-            GIFT TOKENS
+            Gift Token
           </Button>
         )}
       </div>
