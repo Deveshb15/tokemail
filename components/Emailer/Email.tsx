@@ -138,7 +138,7 @@ export function Email({
                   Now, Click the below link to Claim your ${symbol}.
                 </Text>
                 <Link
-                  href={`https://higher-link.vercel.app/claim?uid=${uid}`}
+                  href={`https://tokemail.vercel.app/claim?uid=${uid}`}
                   style={{
                     textDecoration: "none",
                     padding: "1rem 2rem",

@@ -111,9 +111,17 @@ const ClaimDegen = () => {
 
   console.log("CLAIM DATA ", user?.wallet?.address, claimData, loading);
 
+  const handleDashboard = () => {
+    if (user?.wallet?.address) {
+      router.push("/claim/dashboard");
+    } else {
+      login()
+    }
+  }
+
   return (
     <div>
-      <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center  bg-white [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
+      <div className="font-sans text-blue text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center  bg-white [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
         CLAIM ${claimData?.symbol ?? TOKEN_NAME}
       </div>
       {claimData && claimData.claimed ? (
@@ -122,7 +130,7 @@ const ClaimDegen = () => {
             <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
               This Claim has already been claimed
             </h3>
-            <Button content={`Export Wallet`} onClick={exportWallet} />
+            <Button content={`Go to Dashboard`} onClick={handleDashboard} />
           </div>
         </Card>
       ) : (
@@ -134,7 +142,7 @@ const ClaimDegen = () => {
             </h3>
             {ready && user && authenticated ? (
               allowExport ? (
-                <Button content={`Export Wallet`} onClick={exportWallet} />
+                <Button content={`Go to Dashboard`} onClick={handleDashboard} />
               ) : (
                 <Button
                   content={`Claim $${claimData?.symbol ?? TOKEN_NAME}`}

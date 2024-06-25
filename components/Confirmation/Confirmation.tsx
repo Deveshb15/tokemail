@@ -96,7 +96,7 @@ const Confirmation = () => {
 
       if (data) toast.success("Tip sent via email");
       toast.success("Successfully Gifted!");
-      setTimeout(() => router.push(`/sent?hash=${hash}&email=${email}&symbol=${symbol}`));
+      setTimeout(() => router.push(`/sent?hash=${hash}&email=${email}&symbol=${symbol}&icon=${image}`));
       setLoading(false);
     } else {
       toast.error("Transaction failed");

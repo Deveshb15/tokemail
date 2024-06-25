@@ -6,7 +6,7 @@ import { Tokens } from '@/hooks/useGetTokens'
 const formatOptionLabel = ({ value, label, icon="https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png" }: any, { context }: any) => (
     <div className="flex flex-row items-center justify-start">
       <Image width={10} height={10} src={icon} alt={label} className="w-5 h-5 mr-2" />
-      <span className={context === 'value' ? 'text-white' : 'text-dark-grey'}>{label}</span>
+      <span className={'text-dark-grey'}>{label}</span>
     </div>
   );
   
@@ -21,13 +21,13 @@ const customStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black',
     cursor: 'pointer',
     flexDirection: 'row',
+    color: 'black',
   }),
   singleValue: (provided: any) => ({
     ...provided,
-    color: '#fff',
+    color: '#000',
   }),
   dropdownIndicator: (provided: any) => ({
     ...provided,
@@ -36,6 +36,7 @@ const customStyles = {
   indicatorSeparator: (provided: any) => ({
     ...provided,
     display: 'none', 
+    color: 'black',
   }),
 };
 
