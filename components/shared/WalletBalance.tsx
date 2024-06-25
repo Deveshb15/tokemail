@@ -35,7 +35,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const router = useRouter();
 
   return (
-    <div className="select-none  bg-center sm:py-12 sm:px-16 p-6 rounded-t-[32px]  bg-[url('/background.svg')] bg-[#33106D]">
+    <div className="select-none bg-center sm:py-12 sm:px-16 p-6 rounded-t-[32px]   bg-white">
       <div className="flex sm:justify-between items-start flex-col sm:flex-row">
         <div className="flex items-center gap-2">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-0 bg-white">
@@ -45,8 +45,8 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
               alt="Avatar"
             />
           </div>
-          <p className="text-white text-center font-sans font-medium leading-loose text-lg">
-            GM{" "}
+          <p className="text-blue text-center font-cabinet font-normal leading-loose text-lg">
+            {/* GM{" "} */}
             {address
                 ? address.slice(0, 3) + "..." + address.slice(-3)
                 : ""}
@@ -59,11 +59,11 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
       </div>
       <div className="flex sm:justify-between sm:items-end items-start flex-col sm:flex-row gap-6">
         <div>
-          <p className="text-white font-sans font-medium text-base leading-loose mt-6">
+          <p className="text-blue font-normal font-cabinet text-base leading-loose mt-6">
             Your Overall Balance
           </p>
           <div className="flex items-center gap-2 my-2">
-            <p className="text-white font-sans font-bold leading-loose sm:text-5xl text-2xl [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
+            <p className="text-blue font-cabinet font-bold leading-loose sm:text-5xl text-2xl ">
               ${tokenData?.tokens?.length! > 0 ? tokenData?.tokens.reduce((prev, curr) => prev + curr.value, 0)?.toFixed(2) : 0}
             </p>
             {/* <div>
@@ -93,7 +93,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             onClick={() => {
               router.push("/send-money");
             }}
-            className="bg-dark-purple py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
+            className="bg-blue py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
           >
             Gift Token
           </Button>

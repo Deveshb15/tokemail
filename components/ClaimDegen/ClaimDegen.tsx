@@ -122,7 +122,7 @@ const ClaimDegen = () => {
 
   return (
     <div>
-      <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center   bg-[url('/background.svg')] bg-[#33106D] [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
+      <div className="font-sans text-white text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center  bg-white [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
         CLAIM ${TOKEN_NAME}
       </div>
       {claimData && claimData.claimed ? (

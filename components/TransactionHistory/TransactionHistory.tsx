@@ -180,8 +180,14 @@ const TransactionHistory = () => {
           </ul>
         </>
       ) : (
-        <div className="flex items-center justify-center h-[20vh] px-4">
-          <p className="text-light-grey text-center font-sans font-medium text-base">
+        <div className="flex flex-col items-center justify-center h-[20vh] px-4">
+                  <Image
+          src="/Qmark.svg"
+          alt="Close button"
+          width={54}
+          height={54}
+        />
+          <p className="text-light-grey text-center mt-2 font-sans font-medium text-base">
             No Transactions Yet. Start by Gifting someone :)
           </p>
         </div>

@@ -28,7 +28,7 @@ const ShareModal = ({
       <p className="text-dark-grey font-sans text-base font-medium leading-5">
         Copy link
       </p>
-      <div className="bg-beige flex justify-between py-4 md:px-8 px-4 rounded-xl w-full gap-10 mt-2">
+      <div className="bg-medium-grey flex justify-between py-4 md:px-8 px-4 rounded-xl w-full gap-10 mt-2">
         <p className="text-[#646464] font-sans text-base font-medium leading-5">
         https://higher-link.vercel.app
         </p>

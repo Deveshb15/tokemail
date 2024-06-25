@@ -13,6 +13,10 @@ const config = {
     fontFamily: {
       sans: ["var(--font-inter)"],
       mono: ["var(--font-space-mono)"],
+      cabinet: ['cabinet', 'sans-serif'],
+      inter:['Inter', 'sans-serif'],
+      sora: ["Sora"]
+
     },
     container: {
       center: true,
@@ -34,7 +38,11 @@ const config = {
         "ultralight-grey": "#A3A3A3",
         grey: "#515151",
         "dark-grey": "#121212",
+        "medium-grey":"#E8E8E8",
         beige: "#F2F2F2",
+        blue:"#0934FF",
+        "light-blue": "#3864FE",
+        "light-white": "#F5F5F5",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

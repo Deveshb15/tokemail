@@ -51,7 +51,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const router = useRouter();
 
   return (
-    <div className="select-none  bg-center sm:py-12 sm:px-16 p-6 rounded-t-[32px]  bg-[url('/background.svg')] bg-[#33106D]">
+    <div className="select-none  bg-center sm:py-12 sm:px-16 p-6 rounded-t-[32px]   bg-white">
       <div className="flex sm:justify-between items-start flex-col sm:flex-row">
         <div className="flex items-center gap-2">
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-0 bg-white">
@@ -115,7 +115,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             onClick={() => {
               router.push("/send-money");
             }}
-            className="bg-dark-purple py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
+            className="bg-blue py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
           >
             GIFT ${balanceData?.symbol}
           </Button>

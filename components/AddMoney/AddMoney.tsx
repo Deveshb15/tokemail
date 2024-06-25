@@ -51,15 +51,15 @@ const AddMoney = () => {
           <div className="md:flex">
             <label
               htmlFor="higherAmount"
-              className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter"
+              className="text-dark-grey lg:text-base font-medium text-sm leading-loose tracking-tighter"
             >
               Enter token amount to send
               <div className="flex">
-                <div className="bg-beige rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
+                <div className="bg-medium-grey rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
                   <input
                     id="higherAmount"
                     placeholder={`1 ${balanceData?.symbol}`}
-                    className="bg-beige outline-none py-4"
+                    className="bg-medium-grey outline-none py-4"
                     value={selectedAmount}
                     onChange={handleAmountChange}
                   />
@@ -89,14 +89,14 @@ const AddMoney = () => {
 
           <label
             htmlFor="recipientEmail"
-            className="text-dark-grey lg:text-base text-sm leading-loose tracking-tighter flex flex-col mt-8 w-full md:w-[80%]"
+            className="text-dark-grey lg:text-base text-sm font-medium leading-loose tracking-tighter flex flex-col mt-8 w-full md:w-[80%]"
           >
             Recipient&apos;s Email
             <input
               id="recipientEmail"
               type="email"
               placeholder="Enter Recipient's Email Address"
-              className="bg-beige rounded-xl px-4 sm:px-8 py-4 flex gap-4 items-center mt-2 outline-none w-full"
+              className="bg-medium-grey rounded-xl px-4 sm:px-8 py-4 flex gap-4 items-center mt-2 outline-none w-full"
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
