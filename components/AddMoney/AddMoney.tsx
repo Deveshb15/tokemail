@@ -45,6 +45,20 @@ const AddMoney = () => {
   };
 
   console.log("SELECCted ", selectedToken)
+
+  const handleSend = () => {
+    if(selectedAmount == "" || email == "") return;
+    // validate email
+    let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if(!emailRegex.test(email)) {
+      alert("Invalid email address");
+      return;
+    }
+
+    router.push(
+      `/confirm?amount=${selectedAmount}&email=${email}&note="Welcome to the other side my fren, enjoy the $${selectedToken?.symbol ?? "TOKEN"}"&image=${selectedToken?.icon}&contract_address=${selectedToken?.address ?? ""}&symbol=${selectedToken.symbol}&price=${selectedToken?.price}`
+    )
+  }
   return (
     <Card>
       <div className="font-sans flex justify-between pb-4 flex-col lg:flex-row gap-4">
@@ -111,11 +125,7 @@ const AddMoney = () => {
             />
             <Button
               content="SEND"
-              onClick={() =>
-                router.push(
-                  `/confirm?amount=${selectedAmount}&email=${email}&note="Welcome to the other side my fren, enjoy the $${selectedToken?.symbol ?? "TOKEN"}"&image=${selectedToken?.icon}&contract_address=${selectedToken?.address ?? ""}&symbol=${selectedToken.symbol}&price=${selectedToken?.price}`
-                )
-              }
+              onClick={handleSend}
               disabled={selectedAmount == "" || email == ""}
             />
           </div>
