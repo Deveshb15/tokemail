@@ -22,7 +22,7 @@ const SentMessage = () => {
               className="rounded-full"
               alt="Higher Icon"
             />
-            <span className="text-dark-purple">${symbol}</span>
+            <span className="text-blue">${symbol}</span>
           </div>
           to
         </div>
@@ -33,7 +33,7 @@ const SentMessage = () => {
           <Link
             target="_blank"
             href={`${chainId == 8453 ? `https://basescan.org/tx/${hash}` : `https://sepolia.basescan.org/tx/${hash}`}`}
-            className="py-3 px-8 rounded-xl font-bold text-center font-sans text-base border border-dark-purple border-solid text-dark-purple"
+            className="py-3 px-8 rounded-xl font-bold text-center font-sans text-base border border-blue border-solid text-blue"
           >
             View Transaction
           </Link>

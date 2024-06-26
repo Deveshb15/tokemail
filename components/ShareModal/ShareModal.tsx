@@ -22,15 +22,15 @@ const ShareModal = ({
           height={24}
         />
       </button>
-      <h3 className="text-dark-grey text-center font-sans text-xl font-semibold leading-6 mb-8">
-        Share {TOKEN_NAME}Link
+      <h3 className="text-dark-grey text-center font-sans text-xl font-semibold leading-6 mt-2 mb-8">
+        Share Tokemail with Friends
       </h3>
       <p className="text-dark-grey font-sans text-base font-medium leading-5">
         Copy link
       </p>
       <div className="bg-medium-grey flex justify-between py-4 md:px-8 px-4 rounded-xl w-full gap-10 mt-2">
         <p className="text-[#646464] font-sans text-base font-medium leading-5">
-        https://tokemail.xyz
+        tokemail.xyz
         </p>
         <button
           onClick={async () => {
@@ -48,7 +48,7 @@ const ShareModal = ({
       </div>
       <div className="flex justify-evenly mt-8">
         <Link
-          href={`https://warpcast.com/~/compose?text=I just gifted some $${TOKEN_NAME} to a friend on TOKEMAIL.io!&embeds[]=https://tokemail.xyz`}
+          href={`https://warpcast.com/~/compose?text=I%20just%20gifted%20some%20tokens%20on%20@base%20to%20onboard%20a%20friend%20on%20TOKEMAIL.xyz!&embeds[]=https://tokemail.xyz`}
           target="_blank"
           className="flex flex-col items-center gap-3"
         >
@@ -64,7 +64,7 @@ const ShareModal = ({
         </Link>
         <Link
           target="_blank"
-          href={`https://twitter.com/intent/tweet?text=I just gifted some $${TOKEN_NAME} to a friend on degenlink.io!`}
+          href={`https://twitter.com/intent/tweet?text=I just gifted some tokens on @base to onboard a friend via tokemail.xyz!`}
           className="flex flex-col items-center gap-3"
         >
           <Image src="/x-logo.svg" alt="X Logo" width={48} height={48} />

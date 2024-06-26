@@ -15,7 +15,6 @@ import { Toaster } from "react-hot-toast";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Layout from "@/components/shared/Layout";
 import splitbee from "@splitbee/web";
-
 import { PrivyProvider } from "@privy-io/react-auth";
 
 const config = getDefaultConfig({
@@ -31,6 +30,7 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-space-mono",
 });
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
             config={{
               loginMethods: ["email"],
               defaultChain: base,
-              supportedChains: [base, baseSepolia],
+              supportedChains: [base],
               embeddedWallets: {
                 createOnLogin: "users-without-wallets", // defaults to 'off'
               },

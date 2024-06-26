@@ -30,13 +30,20 @@ const Header = ({
       <div className="md:flex gap-4 hidden">
         <button
           onClick={() => setShare(true)}
-          className="py-3 px-6 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose border border-dark-purple border-solid"
+          className="py-2 px-2 flex items-center font-cabinet rounded-xl font-medium text-center font-sans text-base leading-loose bg-[#5C90FF]"
         >
-          Share
+          <span className="text-white font-cabinet mr-2">Share</span>
+          <Image
+          src="/directArrow.svg"
+          alt="arrow"
+          width={24}
+          height={24}
+        />
+
         </button>
         {
           (authenticated && ready) ? (
-            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
+            <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
           ) : (
@@ -79,13 +86,19 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
       <div className="flex flex-col gap-4 w-full items-center">
         <button
           onClick={() => setShare(true)}
-          className="py-5 px-6 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose border border-dark-purple border-solid w-full"
+          className="py-5 px-6 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose w-full"
         >
           Share
+          <Image
+          src="/directArrow.svg"
+          alt="arrow"
+          width={24}
+          height={24}
+        />
         </button>
         {
           (authenticated && ready) ? (
-            <button onClick={exportWallet} className="bg-purple text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
+            <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
           ) : (

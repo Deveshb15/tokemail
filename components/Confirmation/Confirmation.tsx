@@ -110,6 +110,7 @@ const Confirmation = () => {
         <div className="text-dark-grey flex items-center text-lg font-bold sm:gap-1 gap-4 flex-col sm:flex-row ">
           <span>Sending</span>
           <div className="flex gap-1 items-center">
+          {amount}
             <Image
               src={
                 (image as string) ??
@@ -120,7 +121,6 @@ const Confirmation = () => {
               className="rounded-full"
               alt="Higher Icon"
             />
-            {amount}
           </div>
           <span>Worth</span>
           <span>
