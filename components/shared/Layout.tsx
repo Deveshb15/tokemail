@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
         />
         <meta
           property="og:image"
-          content="https://res.cloudinary.com/metapass/image/upload/v1712672458/p6vwimsibltvxzsrkfjk.png"
+          content="https://i.ibb.co/KFQxqhq/tokemail-preview.png"
         />
       </Head>
       {router.pathname != "/" && router.pathname != "/claim" && (
