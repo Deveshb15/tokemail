@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "frog": "^0.8.6",
+    "geist": "^1.3.0",
     "hono": "^4.2.5",
     "lucide-react": "^0.306.0",
     "next": "14.0.4",

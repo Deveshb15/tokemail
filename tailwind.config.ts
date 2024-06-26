@@ -14,8 +14,9 @@ const config = {
       sans: ["var(--font-inter)"],
       mono: ["var(--font-space-mono)"],
       cabinet: ['cabinet', 'sans-serif'],
+      geist: ['geist', 'sans-serif'],
       inter:['Inter', 'sans-serif'],
-      sora: ["Sora"]
+      sora: ["Sora",'sans-serif'],
 
     },
     container: {

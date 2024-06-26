@@ -11,7 +11,7 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = (props) => {
   return (
     <ShadButton
-      className="bg-blue py-6 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
+      className="bg-[#0052FE] py-6 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#0042CC]"
       {...props}
       disabled={props.loading || props.disabled}
     >

@@ -13,6 +13,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'geist';
+  src: url('/fonts/GeistVF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -85,6 +92,7 @@
   body {
     /* @apply bg-background text-foreground;*/
     background: conic-gradient(from 0deg at 50% 50%, #4681FF 0deg, #0B40FF 185.4deg, #0934FF 360deg);
+    
   }
 }
 

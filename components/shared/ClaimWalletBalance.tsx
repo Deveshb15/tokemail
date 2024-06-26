@@ -81,7 +81,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
       </div>
       <div className="flex sm:justify-between sm:items-end items-start flex-col sm:flex-row gap-6">
         <div>
-          <p className="text-dark-purple font-sans font-medium text-base leading-loose mt-6">
+          <p className="text-blue font-sans font-medium text-base leading-loose mt-6">
             Wallet Balance
           </p>
           <div className="flex items-center gap-2 my-2">

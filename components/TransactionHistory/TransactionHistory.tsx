@@ -123,7 +123,7 @@ const TransactionHistory = () => {
                 >
                   {transaction.type === "gift" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
-                      <span className="font-bold text-dark-purple">
+                      <span className="font-bold text-blue">
                         {transaction.amount} ${TOKEN_NAME}
                       </span>{" "}
                       to{" "}
@@ -143,7 +143,7 @@ const TransactionHistory = () => {
                   )}
                   {transaction.type === "receive" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
-                      <span className="font-bold text-dark-purple">
+                      <span className="font-bold text-blue">
                         {transaction.amount} $HIGHER
                       </span>{" "}
                       from{" "}

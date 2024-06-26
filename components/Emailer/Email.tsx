@@ -65,7 +65,7 @@ export function Email({
                 padding: "0 4rem 4rem 4rem",
               }}
             >
-              GM, your OnChain journey begins today.
+              Your Onchain journey begins today.
             </Heading>
           </Section>
           <Section
