@@ -33,9 +33,9 @@ const Home = () => {
     setShowConnect(true);
   };
 
-  // useEffect(() => {
-  //   if (isConnected) router.push("/dashboard");
-  // }, [isConnected]);
+  useEffect(() => {
+    if (isConnected) router.push("/dashboard");
+  }, [isConnected]);
 
   useEffect(() => {
     if (authenticated && ready) router.push("/claim/dashboard");
