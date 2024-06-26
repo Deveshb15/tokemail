@@ -35,9 +35,9 @@ const spaceMono = Space_Mono({
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const rainbowKitTheme = darkTheme({
-  accentColor: "#9261E1",
-  accentColorForeground: "white",
-  borderRadius: "medium",
+  accentColor: "#fff",
+  accentColorForeground: "#0934FF",
+  borderRadius: "large",
   fontStack: "system",
   overlayBlur: "large",
 });
