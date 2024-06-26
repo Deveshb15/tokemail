@@ -11,6 +11,8 @@ import axios from "axios";
 import { HIGHER_CONTRACT_ADDRESS, SEPOLIA_CONTRACT_ADDRESS } from "@/lib/utils";
 import { config } from "@/lib/config";
 import { usePrivy } from "@privy-io/react-auth";
+import { useGetTokens } from "@/hooks/useGetTokens";
+import Assets from "../AddMoney/AssetList";
 
 type WalletBalanceProps = {
   dashboard?: boolean;
@@ -25,20 +27,6 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
   const { user } = usePrivy();
   let address = user?.wallet?.address as `0x${string}` | undefined;
   console.log("ADDRESS ", address);
-  const [ens, setEns] = useState<UserENS | null>(null);
-
-  useEffect(() => {
-    if (address) {
-      axios
-        .get<UserENS>("/api/ens", {
-          params: {
-            address,
-          },
-        })
-        .then((res) => setEns(res.data))
-        .catch((e) => console.log("ERROR ", e));
-    }
-  }, [address]);
 
   const { data: balanceData, isSuccess: balanceSuccess } = useBalance({
     address,
@@ -47,6 +35,8 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
 
   console.log("BALANCE DATA ", balanceData);
   const { data: rateData } = useExchangeRate(8453);
+
+  const { data: tokensData } = useGetTokens(address as string);
 
   const router = useRouter();
 
@@ -57,27 +47,16 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
           <div className="relative h-12 w-12 overflow-hidden rounded-full border-0 bg-white">
             <Image
               src={
-                ens && ens.avatar
-                  ? String(ens.avatar)
-                  : "https://res.cloudinary.com/metapass/image/upload/v1712752332/pexels-codioful-_formerly-gradienta_-6985003_rbhkfe.jpg"
+                "https://res.cloudinary.com/metapass/image/upload/v1712752332/pexels-codioful-_formerly-gradienta_-6985003_rbhkfe.jpg"
               }
               fill
               alt="Avatar"
             />
           </div>
           <p className="text-white text-center font-sans font-medium leading-loose text-lg">
-            GM{" "}
-            {ens
-              ? ens.ens
-              : address
-              ? address.slice(0, 3) + "..." + address.slice(-3)
-              : ""}
+            GM {address ? address.slice(0, 3) + "..." + address.slice(-3) : ""}
           </p>
         </div>
-        <p className="text-white font-sans text-base leading-loose hidden sm:block">
-          1 ${balanceData?.symbol ?? "HIGHER"} :{" "}
-          <span className="font-bold">${rateData?.rate}</span>
-        </p>
       </div>
       <div className="flex sm:justify-between sm:items-end items-start flex-col sm:flex-row gap-6">
         <div>
@@ -85,30 +64,18 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             Wallet Balance
           </p>
           <div className="flex items-center gap-2 my-2">
-            <p className="text-white font-sans font-bold leading-loose sm:text-5xl text-2xl [text-shadow:_0_4px_0_rgb(146_97_225_/_100%)]">
-              {balanceSuccess ? formatEther(balanceData.value).slice(0, 6) : 0}
+            <p className="text-blue font-cabinet font-bold leading-loose sm:text-5xl text-2xl ">
+              $
+              {tokensData?.tokens?.length! > 0
+                ? tokensData?.tokens
+                    .reduce((prev, curr) => prev + curr.value, 0)
+                    ?.toFixed(2)
+                : 0}
             </p>
-            <div>
-              <div className="text-white font-sans text-base font-medium leading-loose flex items-center gap-1">
-                <Image
-                  src="/higher-icon.png"
-                  width={24}
-                  height={24}
-                  className="rounded-full"
-                  alt="Higher Icon"
-                />
-                {balanceData?.symbol}
-              </div>
-            </div>
           </div>
-          <p className="text-white font-sans text-base font-medium leading-loose">
-            ≈ $
-            {balanceData &&
-              rateData &&
-              (rateData?.rate * Number(formatEther(balanceData.value))).toFixed(
-                6
-              )}
-          </p>
+          <div className="flex flex-col lg:w-3/5 w-full">
+          <Assets tokens={tokensData?.tokens ?? []} />
+        </div>
         </div>
         {dashboard && (
           <Button

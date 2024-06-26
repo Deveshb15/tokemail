@@ -1,10 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import Select from 'react-select';
 import { Tokens } from '@/hooks/useGetTokens'
 
-const formatOptionLabel = ({ value, label, icon }: any, { context }: any) => (
-    <div className="flex items-center py-2">
-      <img src={icon} alt={label} className="w-5 h-5 mr-2" />
+const formatOptionLabel = ({ value, label, icon="https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png" }: any, { context }: any) => (
+    <div className="flex flex-row items-center justify-start">
+      <Image width={10} height={10} src={icon} alt={label} className="w-5 h-5 mr-2" />
       <span className={'text-dark-grey'}>{label}</span>
     </div>
   );
@@ -16,16 +17,17 @@ const customStyles = {
     backgroundColor: '#E8E8E8',
     border: 'none',
     borderRadius: '0.75rem', 
-    padding: '6px 32px',
+    padding: '6px 18px',
     display: 'flex',
     alignItems: 'center',
-    color: 'black',
+    justifyContent: 'center',
     cursor: 'pointer',
-    
+    flexDirection: 'row',
+    color: 'black',
   }),
   singleValue: (provided: any) => ({
     ...provided,
-    color: '#fff',
+    color: '#000',
   }),
   dropdownIndicator: (provided: any) => ({
     ...provided,
@@ -34,10 +36,11 @@ const customStyles = {
   indicatorSeparator: (provided: any) => ({
     ...provided,
     display: 'none', 
+    color: 'black',
   }),
 };
 
-const DropdownButton: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
+const DropdownButton: React.FC<{ tokens: Tokens[], selectedToken: any, setSelectedToken: any }> = ({ tokens, selectedToken,  setSelectedToken }) => {
   console.log("TOKENS ", tokens)
   return (
     <div className="">
@@ -45,9 +48,10 @@ const DropdownButton: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
         options={tokens}
         formatOptionLabel={formatOptionLabel}
         styles={customStyles}
-        defaultValue={tokens[0]}
+        value={selectedToken}
+        defaultValue={selectedToken}
         isSearchable={false}
-        onChange={(selectedOption) => console.log(selectedOption)}
+        onChange={(selectedOption) => setSelectedToken(selectedOption)}
       />
     </div>
   );

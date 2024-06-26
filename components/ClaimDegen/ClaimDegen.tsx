@@ -37,15 +37,6 @@ const ClaimDegen = () => {
       if (!error && data.length > 0) {
         const hasClaimed = data[0].claimed;
         if (!hasClaimed) {
-          setTimeout(() => {
-            toast.success(
-              "Queued the claim, should reflect in your wallet soon, please check back in a few minutes.",
-              {
-                duration: 10000,
-              }
-            );
-            setLoading(false);
-          }, 5000);
           const {
             data: { hash },
           } = await axios.post<{ hash: string }>("/api/claim", {
@@ -120,10 +111,18 @@ const ClaimDegen = () => {
 
   console.log("CLAIM DATA ", user?.wallet?.address, claimData, loading);
 
+  const handleDashboard = () => {
+    if (user?.wallet?.address) {
+      router.push("/claim/dashboard");
+    } else {
+      login()
+    }
+  }
+
   return (
     <div>
       <div className="font-cabinet text-blue text-2xl font-bold leading-loose  select-none bg-center py-12 rounded-t-[32px] text-center  bg-white">
-        Sign-Up to Claim
+        Sign-Up to Claim ${claimData?.symbol ?? TOKEN_NAME}
       </div>
       {claimData && claimData.claimed ? (
         <Card>
@@ -131,7 +130,7 @@ const ClaimDegen = () => {
             <h3 className="text-black font-sans text-lg font-medium leading-[150%] mb-6 text-center">
               This Claim has already been claimed
             </h3>
-            <Button content={`Export Wallet`} onClick={exportWallet} />
+            <Button content={`Go to Dashboard`} onClick={handleDashboard} />
           </div>
         </Card>
       ) : (
@@ -143,17 +142,17 @@ const ClaimDegen = () => {
             </h3>
             {ready && user && authenticated ? (
               allowExport ? (
-                <Button content={`Export Wallet`} onClick={exportWallet} />
+                <Button content={`Go to Dashboard`} onClick={handleDashboard} />
               ) : (
                 <Button
-                  content={'Claim tokens'}
+                  content={`Claim $${claimData?.symbol ?? TOKEN_NAME}`}
                   onClick={login}
                   disabled={loading}
                 />
               )
             ) : (
               <Button
-                content={`Claim ${claimData.amount ?? ""} $${TOKEN_NAME}`}
+                content={`Claim ${claimData.amount ?? ""} $${claimData?.symbol ?? TOKEN_NAME}`}
                 onClick={login}
                 disabled={loading}
               />

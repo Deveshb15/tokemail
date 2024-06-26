@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from "next/image";
 import { Tokens } from '@/hooks/useGetTokens'
 
 const Assets: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
@@ -8,7 +9,7 @@ const Assets: React.FC<{ tokens: Tokens[] }> = ({ tokens }) => {
       <ul>
         {tokens?.map((token, index) => (
           <li key={index} className="flex items-center mb-4">
-            <img src={token.icon} alt={token.name} className="w-7 h-7 mr-4"/>
+            <Image src={token.icon ?? "https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png"} alt={token.name} className="w-7 h-7 mr-4 rounded-full" width={10} height={10} />
             <div className="flex-1">
               <div className="font-semibold text-dark-grey text-base">{token.symbol}</div>
               <div className="text-sm text-ultralight-grey">{token.name}</div>

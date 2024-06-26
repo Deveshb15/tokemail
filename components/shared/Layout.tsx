@@ -13,14 +13,14 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
   return (
     <div className={clsx(router.pathname != "/" && "md:pt-10")}>
       <Head>
-        <title>{TOKEN_NAME}Link - Onboard your friends OnChain with ${TOKEN_NAME}</title>
+        <title>TokeMail - Onboard your friends OnChain with Base Tokens</title>
         <meta
           property="og:title"
-          content={`${TOKEN_NAME}Link - Onboard your friends OnChain with $${TOKEN_NAME}`}
+          content={`TokeMail - Onboard your friends OnChain with Base Tokens`}
         />
         <meta
           property="og:description"
-          content={`Quickest way to onboard someone to $${TOKEN_NAME} through gift cards.`}
+          content={`Quickest way to onboard someone to BASE through gift cards.`}
         />
         <meta
           property="og:image"

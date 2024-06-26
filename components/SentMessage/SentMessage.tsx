@@ -4,12 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useAccount } from "wagmi";
-import { TOKEN_NAME } from "@/lib/utils";
 
 const SentMessage = () => {
   const router = useRouter();
   const { chainId } = useAccount();
-  const { hash, email } = router.query;
+  const { hash, email, symbol, icon = "https://i.ibb.co/ZX63CHy/Expo-App-Icon-Splash.png" } = router.query;
   return (
     <Card>
       <div className="flex flex-col items-center font-sans sm:py-16 py-8">
@@ -17,13 +16,13 @@ const SentMessage = () => {
           Successfully sent
           <div className="flex gap-1 items-center">
             <Image
-              src="/higher-icon.png"
+              src={Array.isArray(icon) ? icon[0] : icon}
               width={24}
               height={24}
               className="rounded-full"
               alt="Higher Icon"
             />
-            <span className="text-blue">${TOKEN_NAME}</span>
+            <span className="text-blue">${symbol}</span>
           </div>
           to
         </div>

@@ -16,6 +16,7 @@ type Transaction = {
   email?: string;
   sender?: `0x${string}`;
   hash: string;
+  symbol?: string;
 };
 
 const TransactionHistory = () => {
@@ -78,6 +79,7 @@ const TransactionHistory = () => {
             email: data.recipient,
             sender: address,
             hash: data.sender_hash,
+            symbol: data.symbol,
           });
         });
         recipientData.forEach((data) => {
@@ -88,6 +90,7 @@ const TransactionHistory = () => {
             email: data.recipient,
             recipient: address,
             hash: data.recipient_hash,
+            symbol: data.symbol,
           });
         });
         return transactions;
@@ -123,8 +126,8 @@ const TransactionHistory = () => {
                 >
                   {transaction.type === "gift" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
-                      <span className="font-bold text-blue">
-                        {transaction.amount} ${TOKEN_NAME}
+                      <span className="font-bold text-dark-purple">
+                        {transaction.amount} ${transaction.symbol}
                       </span>{" "}
                       to{" "}
                       <Link
@@ -143,8 +146,8 @@ const TransactionHistory = () => {
                   )}
                   {transaction.type === "receive" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
-                      <span className="font-bold text-blue">
-                        {transaction.amount} $HIGHER
+                      <span className="font-bold text-dark-purple">
+                        {transaction.amount} ${transaction.symbol}
                       </span>{" "}
                       from{" "}
                       <Link

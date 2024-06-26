@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Button from "../shared/Button";
 import ButtonOutline from "../shared/ButtonOutline";
 import Card from "../shared/Card";
@@ -14,14 +14,12 @@ import {
 } from "@/lib/utils";
 import { base } from "viem/chains";
 import { useGetTokens } from "@/hooks/useGetTokens";
+import toast from "react-hot-toast";
 
 const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
   const [selectedAmount, setSelectedAmount] = useState("");
   const [email, setEmail] = useState("");
-  const [note, setNote] = useState(
-    `Welcome to the other side my fren, enjoy the $${TOKEN_NAME}`
-  );
   const [selectedToken, setSelectedToken] = useState<null | any>(null);
 
   const { address, chainId } = useAccount();
@@ -35,12 +33,36 @@ const AddMoney = () => {
   //   setSelectedToken(tokensData?.tokens[0]);
   // }
 
+  useEffect(() => {
+    if(tokensData?.tokens.length ?? 0 > 0) {
+      setSelectedToken(tokensData?.tokens[0]);
+    }
+  }, [!!tokensData?.tokens])
+
   const router = useRouter();
 
   const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedAmount(event.target.value);
   };
 
+  console.log("SELECCted ", selectedToken)
+
+  const handleSend = () => {
+    if(selectedAmount == "" || email == "") return;
+    // validate email
+    let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if(!emailRegex.test(email)) {
+      // alert("Invalid email address");
+      toast.error("Invalid email address", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    router.push(
+      `/confirm?amount=${selectedAmount}&email=${email}&note="Welcome to the other side my fren, enjoy the $${selectedToken?.symbol ?? "TOKEN"}"&image=${selectedToken?.icon}&contract_address=${selectedToken?.address ?? ""}&symbol=${selectedToken.symbol}&price=${selectedToken?.price}`
+    )
+  }
   return (
     <Card>
       <div className="font-sans flex justify-between pb-4 flex-col lg:flex-row gap-4">
@@ -54,11 +76,11 @@ const AddMoney = () => {
               className="text-dark-grey lg:text-base font-medium text-sm leading-loose tracking-tighter"
             >
               Enter token amount to send
-              <div className="flex">
+              <div className="flex ">
                 <div className="bg-medium-grey rounded-xl px-4 sm:px-8 flex gap-1 items-center mt-2 lg:w-fit w-full justify-between">
                   <input
                     id="higherAmount"
-                    placeholder={`1 ${balanceData?.symbol}`}
+                    placeholder={`1 ${selectedToken?.symbol}`}
                     className="bg-medium-grey outline-none py-4"
                     value={selectedAmount}
                     onChange={handleAmountChange}
@@ -67,9 +89,9 @@ const AddMoney = () => {
                     type="button"
                     className="text-dark-grey font-sans lg:text-md text-sm"
                     onClick={() =>
-                      balanceData &&
+                      selectedToken &&
                       setSelectedAmount(
-                        formatEther(balanceData?.value).slice(0, 6)
+                        selectedToken?.amount?.toFixed(4) ?? 0
                       )
                     }
                   >
@@ -80,8 +102,8 @@ const AddMoney = () => {
             </label>
             {
               (tokensData?.tokens.length ?? 0) > 0 && (
-                <div className="mt-8 ml-2">
-                  <DropdownButton tokens={tokensData?.tokens ?? []} />
+                <div className="mt-8 ml-2 flex flex-row items-center justify-center bg-medium-grey rounded-xl text-dark-grey">
+                  <DropdownButton tokens={tokensData?.tokens ?? []} selectedToken={selectedToken} setSelectedToken={setSelectedToken} />
                 </div>
               )
             }
@@ -107,11 +129,7 @@ const AddMoney = () => {
             />
             <Button
               content="SEND"
-              onClick={() =>
-                router.push(
-                  `/confirm?amount=${selectedAmount}&email=${email}&note=${note}`
-                )
-              }
+              onClick={handleSend}
               disabled={selectedAmount == "" || email == ""}
             />
           </div>

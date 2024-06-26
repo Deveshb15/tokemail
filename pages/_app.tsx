@@ -20,7 +20,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 const config = getDefaultConfig({
   appName: "TOKEMAIL",
   projectId: "7febbd905df720d5866a44b58cd1b1a9",
-  chains: [base, baseSepolia],
+  chains: [base],
   // chains: [base],
 });
 const queryClient = new QueryClient();
@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <PrivyProvider
-            appId="clxr9cygi06gn3v696ck1f0ma"
+            appId="clxus5un301nr137jviotvvjv"
             config={{
               loginMethods: ["email"],
               defaultChain: base,
