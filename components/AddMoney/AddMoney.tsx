@@ -14,6 +14,7 @@ import {
 } from "@/lib/utils";
 import { base } from "viem/chains";
 import { useGetTokens } from "@/hooks/useGetTokens";
+import toast from "react-hot-toast";
 
 const AddMoney = () => {
   const ethAmounts = ["100", "500", "1000", "5000"];
@@ -51,7 +52,10 @@ const AddMoney = () => {
     // validate email
     let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if(!emailRegex.test(email)) {
-      alert("Invalid email address");
+      // alert("Invalid email address");
+      toast.error("Invalid email address", {
+        position: "top-center",
+      });
       return;
     }
 
