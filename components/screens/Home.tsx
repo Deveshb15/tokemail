@@ -44,7 +44,7 @@ const Home = () => {
   return (
   
     <div className="flex flex-col font-geist min-h-screen  text-white">
-      <div className="flex justify-between w-full p-6">
+      <div className="flex mt-4 md:mt-0 justify-between w-full p-6">
         <h1 className="text-2xl font-sora font-bold">tokemail</h1>
         <div className="flex space-x-4">
           <button className="hidden md:flex md:px-4 flex md:py-2 bg-[#5C90FF] font-semibold rounded-full hover:bg-blue-600">
