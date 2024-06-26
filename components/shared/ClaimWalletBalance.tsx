@@ -82,9 +82,9 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             onClick={() => {
               router.push("/send-money");
             }}
-            className="bg-blue py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#834BDD]"
+            className="bg-[#0052FE] py-4 px-8 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose disabled:opacity-50 hover:bg-[#0042CC]"
           >
-            GIFT ${balanceData?.symbol}
+            Gift Tokens
           </Button>
         )}
       </div>

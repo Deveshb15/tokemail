@@ -126,7 +126,7 @@ const TransactionHistory = () => {
                 >
                   {transaction.type === "gift" && (
                     <p className="text-grey font-sans text-base font-normal leading-loose ">
-                      <span className="font-bold text-dark-purple">
+                      <span className="font-bold text-blue">
                         {transaction.amount} ${transaction.symbol}
                       </span>{" "}
                       to{" "}

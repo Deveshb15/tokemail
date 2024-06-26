@@ -4,9 +4,17 @@ import type { Metadata } from "next";
 
 export default function HomePage() {
   return (
+    <div style={{
+      backgroundImage: "url('/noisebg.png')",
+      backgroundSize: 'cover',
+      height: '100vh', 
+      width: '100vw',
+    }}>
+  
     <main className="flex h-screen flex-col justify-center md:p-16 pb-6">
       <Home />
     </main>
+    </div>
   );
 }
 
