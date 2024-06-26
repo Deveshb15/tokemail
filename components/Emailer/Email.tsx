@@ -11,6 +11,7 @@ import {
   Row,
   Section,
   Text,
+  Hr
 } from "@react-email/components";
 import { TOKEN_NAME } from "@/lib/utils";
 
@@ -35,31 +36,30 @@ export function Email({
           <Section
             style={{
               width: "100%",
-              background:
-                'url("https://res.cloudinary.com/metapass/image/upload/v1712576165/Screenshot_2024-04-08_at_5.05.56_PM_njc4kh.png")',
+              background: "conic-gradient(from 0deg at 50% 50%, #4681FF 0deg, #0B40FF 185.4deg, #0934FF 360deg)",
               backgroundSize: "cover",
             }}
           >
             <Text
+            className="font-sora"
               style={{
                 color: "white",
                 textAlign: "center",
-                fontFamily: "Space Mono, monospace",
+                fontFamily:"Sora",
                 fontWeight: "bold",
                 fontSize: "1.5rem",
                 lineHeight: "2.5rem",
-                textShadow: "0 4px 0 rgba(146, 97, 225, 1)",
                 paddingTop: "2rem",
               }}
             >
-              TokeMail
+              tokemail
             </Text>
             <Heading
               as="h2"
               style={{
                 color: "white",
                 textAlign: "center",
-                fontFamily: "Space Mono,monospace",
+                fontFamily: "Cabinet,monospace",
                 fontSize: "2rem",
                 lineHeight: "2.5rem",
                 letterSpacing: "-0.025em",
@@ -135,14 +135,14 @@ export function Email({
                     marginBottom: "2rem",
                   }}
                 >
-                  Now, Click the below link to Claim your ${symbol}.
+                  Now, Click the below link to Claim your tokens.
                 </Text>
                 <Link
                   href={`https://tokemail.xyz/claim?uid=${uid}`}
                   style={{
                     textDecoration: "none",
                     padding: "1rem 2rem",
-                    backgroundColor: "#9261E1",
+                    backgroundColor: "#0934FF",
                     color: "white",
                     border: "none",
                     borderRadius: "0.75rem",
@@ -151,15 +151,44 @@ export function Email({
                     width: "100%",
                   }}
                 >
-                  Claim ${symbol}
+                  Claim Tokens
                 </Link>
               </Section>
             </Section>
           </Section>
+        <Section style={paddingY} className="bg-black h-10">
+          <Row>
+            <Text style={footer.text}>
+            From the House of FBI (Farcaster Builders India)
+                        </Text>
+          </Row>
+          
+        </Section>
+
         </Container>
       </Body>
     </Html>
   );
 }
+const footer = {
+
+  policy: {
+    width: "166px",
+    margin: "auto",
+    backgroundColor: "black",
+  },
+  text: {
+    margin: "0",
+    color: "#AFAFAF",
+    fontSize: "13px",
+    textAlign: "center",
+  } as React.CSSProperties,
+};
+
+const paddingY = {
+  paddingTop: "44px",
+  paddingBottom: "22px",
+};
+
 
 export default Email;

@@ -33,15 +33,16 @@ const Home = () => {
     setShowConnect(true);
   };
 
-  useEffect(() => {
-    if (isConnected) router.push("/dashboard");
-  }, [isConnected]);
+  // useEffect(() => {
+  //   if (isConnected) router.push("/dashboard");
+  // }, [isConnected]);
 
   useEffect(() => {
     if (authenticated && ready) router.push("/claim/dashboard");
   }, [authenticated, ready]);
 
   return (
+  
     <div className="flex flex-col font-geist min-h-screen  text-white">
       <div className="flex justify-between w-full p-6">
         <h1 className="text-2xl font-sora font-bold">tokemail</h1>
@@ -87,9 +88,10 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-start justify-end flex-grow text-center">
-        <div className="flex items-center">
-        <h2 className="md:text-[110px] font-bold">Send</h2>
+      <div className="flex flex-col items-start justify-end mb-10 flex-grow text-center">
+        <div className="flex items-center"  style={{"lineHeight":0}}>
+        <h2 className="md:text-7xl lg:text-[110px] font-bold">Send</h2>
+        <div className="flex items-center bg-[#4480FF] h-20 px-2 rounded-2xl">
         <Image
             src="/tokens.svg"
             alt="All Tokens"
@@ -98,10 +100,10 @@ const Home = () => {
             className="w-40 h-40"
           />
         <h2 className="md:text-5xl lg:text-7xl font-bold">Your tokens</h2>
-   
+        </div>   
         </div>
         <div className="flex items-center ">
-        <h2 className="mt-8 md:text-5xl lg:text-[212px] font-bold">Base→Email</h2>
+        <h2 className=" md:text-9xl lg:text-[212px] font-bold">Base→Email</h2>
      
         <Image
             src="/anyone.svg"
