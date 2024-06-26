@@ -19,7 +19,7 @@ const getTokens = (data: any) => {
             chain: token.relationships.chain.data.id,
             address: token.attributes.fungible_info.implementations[0].address
         }
-        if(token_data.price > 0 && token_data.value > 0.5 && token_data.amount > 0) {
+        if(token_data.price > 0 && token_data.value > 0 && token_data.amount > 0) {
             tokens.push(token_data)
         }
     }
