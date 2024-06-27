@@ -74,7 +74,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
             </p>
           </div>
           <div className="flex flex-col lg:w-3/5 w-full">
-          <Assets tokens={tokensData?.tokens ?? []} />
+          {/* <Assets tokens={tokensData?.tokens ?? []} /> */}
         </div>
         </div>
         {dashboard && (

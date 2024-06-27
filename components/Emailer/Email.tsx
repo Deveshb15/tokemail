@@ -36,7 +36,7 @@ export function Email({
           <Section
             style={{
               width: "100%",
-              background: "conic-gradient(from 0deg at 50% 50%, #4681FF 0deg, #0B40FF 185.4deg, #0934FF 360deg)",
+              backgroundColor: "conic-gradient(from 0deg at 50% 50%, #4681FF 0deg, #0B40FF 185.4deg, #0934FF 360deg)",
               backgroundSize: "cover",
             }}
           >
@@ -188,6 +188,7 @@ const footer = {
 const paddingY = {
   paddingTop: "44px",
   paddingBottom: "22px",
+  backgroundColor: "black",
 };
 
 
