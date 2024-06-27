@@ -67,7 +67,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-[#2E085D] z-40 flex flex-col items-center gap-8 py-10 px-8">
+    <div className="fixed top-0 left-0 w-full h-full bg-blue z-40 flex flex-col items-center gap-8 py-10 px-8">
       <button
         className="self-end"
         onClick={() => {
@@ -86,7 +86,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
       <div className="flex flex-col gap-4 w-full items-center">
         <button
           onClick={() => setShare(true)}
-          className="py-5 px-6 rounded-xl text-white font-semibold text-center font-sans text-base leading-loose w-full"
+          className="py-5 px-6 flex justify-center rounded-xl w-[60%] text-white font-semibold text-center font-sans text-base bg-[#5C90FF] leading-loose w-full"
         >
           Share
           <Image
@@ -94,6 +94,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
           alt="arrow"
           width={24}
           height={24}
+          className="ml-2"
         />
         </button>
         {
