@@ -69,7 +69,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
               {tokensData?.tokens?.length! > 0
                 ? tokensData?.tokens
                     .reduce((prev, curr) => prev + curr.value, 0)
-                    ?.toFixed(2)
+                    ?.toFixed(4)
                 : 0}
             </p>
           </div>
