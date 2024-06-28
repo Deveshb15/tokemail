@@ -47,7 +47,7 @@ const Home = () => {
       <div className="flex mt-4 md:mt-0 justify-between w-full p-6">
         <h1 className="text-2xl font-sora font-bold">tokemail</h1>
         <div className="flex space-x-4">
-          <button className="hidden md:flex md:px-4 flex md:py-2 bg-[#5C90FF] font-semibold rounded-full hover:bg-blue-600">
+          <a href="https://app.deform.cc/form/4d2a2bdb-1a7f-42e3-add8-658d6af7d225/" target="_blank" rel="noreferrer" className="hidden md:flex md:px-4 flex md:py-2 bg-[#5C90FF] font-semibold rounded-full hover:bg-blue-600">
             Add your token
             <Image
           src="/directArrow.svg"
@@ -56,7 +56,7 @@ const Home = () => {
           height={24}
           className="ml-2"
         />             
-            </button>
+            </a>
             {!authenticated ? (
         !showConnect ? (
           <button
