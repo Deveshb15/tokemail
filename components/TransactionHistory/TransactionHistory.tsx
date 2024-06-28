@@ -78,7 +78,7 @@ const TransactionHistory = () => {
             recipient: data.recipient_address,
             email: data.recipient,
             sender: address,
-            hash: data.sender_hash,
+            hash: data?.sender_hash ?? data.recipient_hash,
             symbol: data.symbol,
           });
         });
@@ -89,7 +89,7 @@ const TransactionHistory = () => {
             sender: data.sender,
             email: data.recipient,
             recipient: address,
-            hash: data.recipient_hash,
+            hash: data?.recipient_hash ?? data.sender_hash,
             symbol: data.symbol,
           });
         });

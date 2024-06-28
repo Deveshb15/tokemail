@@ -90,6 +90,7 @@ const Confirmation = () => {
         chain: chainId,
         symbol,
         token: contract_address ?? "ETH",
+        usd_value: (Number(amount) * Number(price))?.toFixed(4)
       });
 
       console.log("ERROR", error);

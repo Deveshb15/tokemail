@@ -18,6 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
               claimed: true,
               recipient_address: address,
               receiver_hash: data[0].sender_hash ?? "0x0",
+              privy: true
             })
             .eq("claim_uid", uid);
           console.log("ERROR ", error, updateData);
