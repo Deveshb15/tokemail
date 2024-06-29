@@ -58,23 +58,7 @@ const Home = () => {
         />             
             </a>
             {!authenticated ? (
-        !showConnect ? (
-          <button
-            onClick={handleSendNowClick}
-            className="px-4 flex py-2 text-blue font-geist font-semibold bg-white rounded-full hover:bg-blue-600"
-          >
-            Send now
-            <Image
-          src="/rightArrow.svg"
-          alt="arrow"
-          width={24}
-          height={24}
-          className="ml-2"
-        />        
-          </button>
-        ) : (
-          <ConnectButton label="Send Now" />
-        )
+               <ConnectButton label="Send Now" />
       ) : (authenticated && ready) ? (
         <button
           onClick={exportWallet}
