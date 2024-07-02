@@ -49,7 +49,7 @@ const Header = ({
 
         </button>
         {
-          (!authenticated && ready) ? (
+          (authenticated && ready) ? (
           <>
           <Popover>
           <PopoverTrigger>
@@ -130,7 +130,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
         </button>
         
         {
-          (!authenticated && ready) ? (
+          (authenticated && ready) ? (
             <>
             <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
