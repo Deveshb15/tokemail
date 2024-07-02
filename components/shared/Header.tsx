@@ -65,7 +65,7 @@ const Header = ({
             </PopoverTrigger>
           <PopoverContent className="bg-white font-mono border-white w-[200px]">
               <div className="flex flex-col">
-                <button onClick={logout} className="text-base text-black">
+                <button onClick={logout} className="text-base text-[#FF0000]">
                 <text className="font-sora">Logout</text> 
                 </button>
                 <button onClick={exportWallet} className="text-black font-sora pt-2 px-4  text-base">
@@ -135,7 +135,7 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
             <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
-             <button onClick={logout} className="text-lg font-sans text-white font-bold">
+             <button onClick={logout} className="text-lg font-sans text-[#FF0000] font-bold">
              <text className="">Logout</text> 
             </button>
             </>
