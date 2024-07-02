@@ -1,8 +1,14 @@
 import Image from "next/image";
 import Logo from "./Logo";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, Profiler, SetStateAction, useEffect, useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 
 type MenuProps = {
   toggleMenu: () => void;
@@ -15,11 +21,12 @@ const Header = ({
   setShare: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { authenticated, ready, exportWallet } = usePrivy()
+  const { authenticated, ready, exportWallet,logout } = usePrivy()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
 
   return (
     <div className="flex justify-between items-center p-6 md:py-0 border-b border-white border-opacity-20 w-full md:w-auto md:border-b-0">
@@ -42,22 +49,46 @@ const Header = ({
 
         </button>
         {
-          (authenticated && ready) ? (
-            <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
-              Export Wallet
-            </button>
+          (!authenticated && ready) ? (
+          <>
+          <Popover>
+          <PopoverTrigger>
+              <div className="relative h-12 w-12 overflow-hidden rounded-full border-0 bg-white">
+                    <Image
+                      src={
+                        "https://res.cloudinary.com/metapass/image/upload/v1712752332/pexels-codioful-_formerly-gradienta_-6985003_rbhkfe.jpg"
+                      }
+                      fill
+                      alt="Avatar"
+                    />
+                  </div>
+            </PopoverTrigger>
+          <PopoverContent className="bg-white font-mono border-white w-[200px]">
+              <div className="flex flex-col">
+                <button onClick={logout} className="text-base text-black">
+                <text className="font-sora">Logout</text> 
+                </button>
+                <button onClick={exportWallet} className="text-black font-sora pt-2 px-4  text-base">
+                      Export Wallet
+                    </button>
+              </div>
+              </PopoverContent>
+            </Popover>
+                </>
           ) : (
             <ConnectButton />
           )
         }
       </div>
       {menuOpen && <Menu toggleMenu={toggleMenu} setShare={setShare} />}
+
     </div>
   );
 };
 
+
 const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
-  const { authenticated, ready, exportWallet } = usePrivy()
+  const { authenticated, ready, exportWallet,logout } = usePrivy()
 
   useEffect(() => {
     if (typeof window != "undefined" && window.document) {
@@ -97,11 +128,17 @@ const Menu: React.FC<MenuProps> = ({ toggleMenu, setShare }) => {
           className="ml-2"
         />
         </button>
+        
         {
-          (authenticated && ready) ? (
+          (!authenticated && ready) ? (
+            <>
             <button onClick={exportWallet} className="bg-blue text-white font-sans font-bold text-lg py-2 px-6 rounded-lg">
               Export Wallet
             </button>
+             <button onClick={logout} className="text-lg font-sans text-white font-bold">
+             <text className="">Logout</text> 
+            </button>
+            </>
           ) : (
             <ConnectButton />
           )

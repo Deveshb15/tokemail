@@ -53,7 +53,7 @@ const ClaimWalletBalance: React.FC<WalletBalanceProps> = ({ dashboard }) => {
               alt="Avatar"
             />
           </div>
-          <p className="text-white text-center font-sans font-medium leading-loose text-lg">
+          <p className="text-blue text-center font-sans font-medium leading-loose text-lg">
             GM {address ? address.slice(0, 3) + "..." + address.slice(-3) : ""}
           </p>
         </div>
