@@ -20,7 +20,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 const config = getDefaultConfig({
   appName: "TOKEMAIL",
   projectId: "7febbd905df720d5866a44b58cd1b1a9",
-  chains: [base],
+  chains: [base, baseSepolia],
   // chains: [base],
 });
 const queryClient = new QueryClient();
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
             config={{
               loginMethods: ["email"],
               defaultChain: base,
-              supportedChains: [base],
+              supportedChains: [base, baseSepolia],
               embeddedWallets: {
                 createOnLogin: "users-without-wallets", // defaults to 'off'
               },

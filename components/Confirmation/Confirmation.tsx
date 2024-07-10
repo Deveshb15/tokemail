@@ -56,7 +56,7 @@ const Confirmation = () => {
     let hash = "0x0";
     if (contract_address && contract_address?.length > 0) {
       hash = await writeContractAsync({
-        address: contract_address,
+        address: HIGHER_CONTRACT_ADDRESS,
         abi: TRANSFER_ABI,
         functionName: "transfer",
         args: [recipient_address, parseEther(String(amount))],
